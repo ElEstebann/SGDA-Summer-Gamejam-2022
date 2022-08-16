@@ -75,4 +75,9 @@ public class PlayerMovement : MonoBehaviour
     {
         hasBall = true;
     }
+
+    public void Kill()
+    {
+        
+    }
 }

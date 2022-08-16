@@ -5,32 +5,116 @@ using UnityEngine;
 public class ball : MonoBehaviour
 {
     private Rigidbody2D rigidbody;
+    private bool canBeCaught = true;
+    private SpriteRenderer sprite;
+    private Collider2D collider;
+    [SerializeField] 
+    private float pickupSpeed;
+    private int owner = 0;
+    public float pickupDelay;
+    private float currentDelay;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        collider = GetComponent<Collider2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+        if(!canBeCaught && Mathf.Abs(rigidbody.velocity.magnitude) < pickupSpeed && catchDelay <= 0)
+        {
+            EnableBall();
+        }
+        if(catchDelay > 0)
+        {
+            catchDelay -= Time.deltaTime;
+        }
+        */
         
     }
     
+    void FixedUpdate()
+    {
+        Debug.Log(canBeCaught);
+        if(!canBeCaught && Mathf.Abs(rigidbody.velocity.magnitude) < pickupSpeed && currentDelay <= 0)
+        {
+            EnableBall();
+        }
+        if(currentDelay> 0)
+        {
+            currentDelay -= Time.deltaTime;
+        }
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
-
-        switch(collision.gameObject.tag)
+        if(owner == 0)
         {
-            case "Player":
-                Debug.Log("Ball hit by " + collision.gameObject.tag);
-                transform.SetParent(collision.gameObject.transform);
-                rigidbody.isKinematic = true; 
-                rigidbody.simulated = false;; 
-                break;
-            default:
-                break;
+        switch(collision.gameObject.tag)
+            {
+                case "Player":
+                    Debug.Log("Ball hit by " + collision.gameObject.tag);
+                    if(canBeCaught)
+                    {
+                        transform.SetParent(collision.gameObject.transform);
+                        PickupBall();
+                        PlayerMovement player = transform.parent.parent.GetComponent<PlayerMovement>();
+                        player.GetBall();
+                        owner = player.playerIndex;
 
+                    }
+                    else
+                    {
+
+                    }
+
+                    break;
+                case "Arena":
+                    break;
+
+                default:
+                    break;
+
+            }
         }
+    }
+
+    void ThrowTo(Vector2 force)
+    {
+        Debug.Log("Trown!");
+        transform.SetParent(GameObject.Find("Ball").transform);
+        ReleaseBall();
+
+        rigidbody.AddForce(force);
+        sprite.color = Color.red;
+        canBeCaught = false;
+        
+    }
+
+    private void PickupBall()
+    {
+        collider.enabled = false;
+        rigidbody.isKinematic = true; 
+        rigidbody.simulated = false;
+        rigidbody.velocity = Vector2.zero;
+    }
+
+    private void ReleaseBall()
+    {
+        rigidbody.isKinematic = false; 
+        rigidbody.simulated = true;
+        collider.enabled = true;
+        currentDelay = pickupDelay;
+    }
+
+    private void EnableBall()
+    {
+        sprite.color = Color.white;
+        canBeCaught = true;
+        owner = 0;
     }
 }

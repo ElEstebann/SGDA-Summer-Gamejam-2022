@@ -105,4 +105,27 @@ public class PlayerMovement : MonoBehaviour
             shot = false;
         }  
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log(collision.gameObject.tag);
+        /*switch(collision.gameObject.tag)
+        {
+            case "Ball":
+                Ball ball = collision.gameObject.transform.GetComponent<Ball>();
+
+                if(ball && ball.owner != 0 && ball.owner != playerIndex)
+                {
+                    Die();
+                }
+                else
+                {
+
+                }
+                break;
+
+            default:
+                break;
+        }
+        */
+    }
 }

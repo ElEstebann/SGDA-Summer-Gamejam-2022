@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     public Vector2 direction = Vector2.zero;
     private bool frozen;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
     public bool hasBall;
   
     private float currentSpeed = 0;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         frozen = false;
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         if(playerIndex <= 0)
             frozen = true;
 
@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
     {
-            rigidbody.rotation = rotation;
-            rigidbody.velocity = direction*currentSpeed;
+            rb.rotation = rotation;
+            rb.velocity = direction*currentSpeed;
     }
 
     public void ThrowBall()
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
         switch(collision.gameObject.tag)
         {
             case "Ball":
@@ -129,4 +129,6 @@ public class Player : MonoBehaviour
 
         }
     }
+
+    
 }

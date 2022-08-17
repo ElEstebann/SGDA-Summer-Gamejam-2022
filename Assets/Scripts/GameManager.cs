@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour
     public static event Game OnReviveAll;
     void Start()
     {
-        foreach(GameObject player in players)
+        for(int i = 0; i < 4; i++)
         {
-            //Setup player controls
+            PlayerMovement PM = players[i].GetComponent<PlayerMovement>();
+            PM.controlType = MultiplayerManager.instance.playerControls[i];
         }
     }
 

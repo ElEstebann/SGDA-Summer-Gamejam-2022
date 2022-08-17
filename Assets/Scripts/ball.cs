@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
                     {
                         transform.SetParent(collision.gameObject.transform);
                         PickupBall();
-                        PlayerMovement player = transform.parent.GetComponent<PlayerMovement>();
+                        Player player = transform.parent.GetComponent<Player>();
                         player.GetBall();
                         owner = player.playerIndex;
 
@@ -85,7 +85,7 @@ public class Ball : MonoBehaviour
 
     void ThrowTo(Vector2 force)
     {
-        Debug.Log("Trown!");
+        Debug.Log("Trown!" + force);
         transform.SetParent(GameObject.Find("Ball").transform);
         ReleaseBall();
 

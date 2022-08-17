@@ -9,6 +9,7 @@ public class MultiplayerManager : MonoBehaviour
 
     public enum controlType
     {
+        None,
         CPU,
         Keyboard1,
         Keyboard2,

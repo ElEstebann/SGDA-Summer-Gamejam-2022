@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+        Debug.Log("PLayer" + player.playerIndex);
     }
 
     // Update is called once per frame
@@ -24,6 +25,55 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Fire1"))
         {
             player.ThrowBall();;
+        }  
+
+        switch(controlType)
+        {
+            case MultiplayerManager.controlType.Keyboard1:
+                direction.x = Input.GetAxis("Key1 Horizontal");
+                direction.y = Input.GetAxis("Key1 Vertical");
+                if(Input.GetButtonDown("Key1 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+
+            case MultiplayerManager.controlType.Keyboard2:
+                direction.x = Input.GetAxis("Key2 Horizontal");
+                direction.y = Input.GetAxis("Key2 Vertical");
+                if(Input.GetButtonDown("Key2 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+
+            case MultiplayerManager.controlType.Keyboard3:
+                direction.x = Input.GetAxis("Key3 Horizontal");
+                direction.y = Input.GetAxis("Key3 Vertical");
+                if(Input.GetButtonDown("Key3 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+
+            case MultiplayerManager.controlType.Keyboard4:
+                direction.x = Input.GetAxis("Key4 Horizontal");
+                direction.y = Input.GetAxis("Key4 Vertical");
+                if(Input.GetButtonDown("Key4 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+
+            default:
+                break;
+        }
+
+        player.HandleMovement(direction);
+        if(shot)
+        {
+            player.ThrowBall();
+            shot = false;
         }  
     }
 }

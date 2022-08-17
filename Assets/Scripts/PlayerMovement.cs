@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
+
+        GameManager.OnReviveAll +=Revive;
     }
 
     // Update is called once per frame
@@ -61,6 +63,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 ThrowBall();;
             }
+
+            //Debug Keys
+            if(Input.GetButtonDown("Fire2"))
+            {
+                Die();
+            }
         }
         
     }
@@ -78,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     private void ThrowBall()
     {
         hasBall = false;
-        Debug.Log("Ball Thrown");
+        //Debug.Log("Ball Thrown");
         BroadcastMessage("ThrowTo",direction*throwForce);
     }
     public void GetBall()
@@ -88,14 +96,27 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("I DIED");
-        frozen = false;
-        animator.SetTrigger("Killed");
-        alive = false;
-        //collider.enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("Ghost");
+        if(alive)
+        {
+            //Debug.Log("I DIED");
+            frozen = false;
+            animator.SetTrigger("Killed");
+            alive = false;
+            //collider.enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Ghost");
+        }
         
 
+    }
+
+    public void Revive()
+    {
+        if(!alive)
+        {
+            animator.SetTrigger("Revived");
+            alive = true;
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -105,7 +126,8 @@ public class PlayerMovement : MonoBehaviour
         {
             case "Ball":
                 Ball ball = collision.gameObject.transform.GetComponent<Ball>();
-                if(ball.owner != 0 && ball.owner != playerIndex)
+
+                if(ball && ball.owner != 0 && ball.owner != playerIndex)
                 {
                     Die();
                 }

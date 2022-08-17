@@ -40,7 +40,7 @@ public class Ball : MonoBehaviour
     
     void FixedUpdate()
     {
-        Debug.Log(canBeCaught);
+        //Debug.Log(canBeCaught);
         if(!canBeCaught && Mathf.Abs(rigidbody.velocity.magnitude) < pickupSpeed && currentDelay <= 0)
         {
             EnableBall();

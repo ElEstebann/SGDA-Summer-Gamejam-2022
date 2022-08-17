@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ball : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     private Rigidbody2D rigidbody;
     private bool canBeCaught = true;
@@ -10,7 +10,7 @@ public class ball : MonoBehaviour
     private Collider2D collider;
     [SerializeField] 
     private float pickupSpeed;
-    private int owner = 0;
+    public int owner = 0;
     public float pickupDelay;
     private float currentDelay;
     // Start is called before the first frame update
@@ -62,7 +62,7 @@ public class ball : MonoBehaviour
                     {
                         transform.SetParent(collision.gameObject.transform);
                         PickupBall();
-                        PlayerMovement player = transform.parent.parent.GetComponent<PlayerMovement>();
+                        PlayerMovement player = transform.parent.GetComponent<PlayerMovement>();
                         player.GetBall();
                         owner = player.playerIndex;
 

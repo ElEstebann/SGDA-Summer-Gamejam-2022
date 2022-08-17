@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
     {
+            rigidbody.rotation = rotation;
+            rigidbody.velocity = direction*currentSpeed;
     }
 
     public void ThrowBall()
@@ -109,23 +111,22 @@ public class Player : MonoBehaviour
 
     public void HandleMovement(Vector2 input)
     {
+        Debug.Log("player:" + playerIndex + " " + input);
         if(!frozen)
         {
             if(input == Vector2.zero)
             {
                 currentSpeed = 0;
-                rigidbody.rotation = rotation;
             }
             else
             {
                 currentSpeed = speed;
-                direction.x = input.x;
-                direction.y = input.y;
+                direction = input;
                 direction.Normalize();
                 rotation = rotation = Mathf.Atan2(direction.y,direction.x)*180/Mathf.PI -90f;
-                rigidbody.rotation = rotation;
+
             }
-            rigidbody.velocity = direction*currentSpeed;
+
         }
     }
 }

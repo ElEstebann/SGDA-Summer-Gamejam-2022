@@ -13,20 +13,12 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        Debug.Log("PLayer" + player.playerIndex);
+        Debug.Log("Player" + player.playerIndex + " " + controlType);
     }
 
     // Update is called once per frame
     void Update()
     {
-        direction.x = Input.GetAxis("Horizontal");
-        direction.y = Input.GetAxis("Vertical");
-        player.HandleMovement(direction);
-        if(Input.GetButtonDown("Fire1"))
-        {
-            player.ThrowBall();;
-        }  
-
         switch(controlType)
         {
             case MultiplayerManager.controlType.Keyboard1:
@@ -65,6 +57,43 @@ public class PlayerMovement : MonoBehaviour
                 }  
                 break;
 
+            case MultiplayerManager.controlType.Gamepad1:
+                direction.x = Input.GetAxis("Joy1 Horizontal");
+                direction.y = Input.GetAxis("Joy1 Vertical");
+                if(Input.GetButtonDown("Joy1 Fire"))
+                {
+                    shot = true;
+                }  
+                
+                break;
+
+
+            case MultiplayerManager.controlType.Gamepad2:
+                direction.x = Input.GetAxis("Joy2 Horizontal");
+                direction.y = Input.GetAxis("Joy2 Vertical");
+                if(Input.GetButtonDown("Joy2 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+                
+            case MultiplayerManager.controlType.Gamepad3:
+                direction.x = Input.GetAxis("Joy3 Horizontal");
+                direction.y = Input.GetAxis("Joy3 Vertical");
+                if(Input.GetButtonDown("Joy3 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
+
+            case MultiplayerManager.controlType.Gamepad4:
+                direction.x = Input.GetAxis("Joy4 Horizontal");
+                direction.y = Input.GetAxis("Joy4 Vertical");
+                if(Input.GetButtonDown("Joy4 Fire"))
+                {
+                    shot = true;
+                }  
+                break;
             default:
                 break;
         }

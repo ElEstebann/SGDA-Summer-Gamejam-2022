@@ -18,11 +18,18 @@ public class BattleCamera : MonoBehaviour
     private float zoomEase;
     [SerializeField]
     private float minZoom;
+    [SerializeField]
+    private int focusIndex  = 4;
+    [SerializeField]
+    public int focusModifier = 1;
+    private GameManager GM;
     void Start()
     {
         position = transform.position;
         cam = GetComponent<Camera>();
         zoom = cam.orthographicSize;
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GameManager.OnGameOver += SetWinnerFocus;
     }
 
     // Update is called once per frame
@@ -41,20 +48,25 @@ public class BattleCamera : MonoBehaviour
 
     private Vector3 FindFoci()
     {
-        position = Vector3.zero;
+        Vector3 averagePosition = Vector3.zero;
         
 
-        for(int i= 0; i < 4; i++)
+        for(int i= 0; i < 5; i++)
         {
-            position += foci[i].position;
+            if(i == focusIndex)
+            {
+                averagePosition += foci[i].position*focusModifier;
+            }
+            else
+            {
+                averagePosition += foci[i].position;
+            }
 
 
         }
-        position /= 4;
-        position += foci[4].position;
-        position /= 2;
-        position.z = transform.position.z;
-        return position;
+        averagePosition = averagePosition/(4 + focusModifier);
+        averagePosition.z = transform.position.z;
+        return averagePosition;
 
     }
 
@@ -87,5 +99,15 @@ public class BattleCamera : MonoBehaviour
             return maxY;
         }
 
+    }
+
+    private void SetFocus(int index)
+    {
+        focusIndex = index;
+    }
+
+    private void SetWinnerFocus()
+    {
+        SetFocus(GM.roundWinner.playerIndex-1);
     }
 }

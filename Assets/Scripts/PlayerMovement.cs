@@ -14,16 +14,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool isPossessing = false;
     public Color hue;
+    [SerializeField]
     private bool frozen = true;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         player.hue = hue;
-        Debug.Log(hue);
-        Debug.Log("Player" + player.playerIndex + " " + controlType);
+        //Debug.Log(hue);
+        //Debug.Log("Player" + player.playerIndex + " " + controlType);
         GameManager.OnReviveAll += Eject;
         GameManager.OnUnpause += Unfreeze;
+        GameManager.OnGameOver += Freeze;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnReviveAll -= Eject;
+        GameManager.OnUnpause -= Unfreeze;
+        GameManager.OnGameOver -= Freeze;
     }
 
     // Update is called once per frame
@@ -110,16 +119,21 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
 
+            HandleInput(direction,shot);
+        }
+    }
+    void HandleInput(Vector2 dir,bool didShoot)
+    {
             if(isPossessing)
             {
-                possessable.HandleMovement(direction);
+                possessable.HandleMovement(dir);
             }
             else
             {
-                player.HandleMovement(direction);
+                player.HandleMovement(dir);
             }
             
-            if(shot)
+            if(didShoot)
             {
                 if(canPossess)
                 {
@@ -135,7 +149,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 shot = false;
             }  
-        }
     }
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -203,11 +216,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Freeze()
     {
+        Debug.Log("FROZEN");
         frozen = true;
+        HandleInput(new Vector2(0,0),false);
     }
 
     private void Unfreeze()
     {
         frozen = false;
     }
+
 }

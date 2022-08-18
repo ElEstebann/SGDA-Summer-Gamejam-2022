@@ -8,12 +8,20 @@ public class Countdown3 : StateMachineBehaviour
     private TextMeshProUGUI text;
     [SerializeField]
     private string number;
+    [SerializeField]
+    private bool overrideFontSize = false;
+    [SerializeField]
+    private int fontSize = 500;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         text = animator.gameObject.transform.Find("Countdown").GetComponent<TextMeshProUGUI>();
         text.text = number;
+        if(overrideFontSize)
+        {
+            text.fontSize = fontSize;
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

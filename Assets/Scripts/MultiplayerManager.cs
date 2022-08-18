@@ -29,10 +29,10 @@ public class MultiplayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         if (instance == null){
             instance = this;
-            Debug.Log("Instance was null");
+            //Debug.Log("Instance was null");
         } else if (instance != this){
             Destroy(gameObject);
-            Debug.Log("Destroyed.");
+            //Debug.Log("Destroyed.");
             return;
         }
         

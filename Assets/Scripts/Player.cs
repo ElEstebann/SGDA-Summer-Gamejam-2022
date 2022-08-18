@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private bool hiding = false;
     private GameObject hideObject;
     public Color hue;
+    private GameManager GM;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
 
         GameManager.OnReviveAll +=Revive;
         hideObject = null;
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -62,7 +64,7 @@ public class Player : MonoBehaviour
             hasBall = false;
             //Debug.Log("Ball Thrown");
             BroadcastMessage("ThrowTo",direction*throwForce);
-            Debug.Log("Throwing: " + direction + " " + throwForce);
+            //Debug.Log("Throwing: " + direction + " " + throwForce);
         }
     }
     public void GetBall()
@@ -70,11 +72,12 @@ public class Player : MonoBehaviour
         hasBall = true;
     }
 
-    public void Die()
+    public void Die(Ball ball)
     {
         if(alive)
         {
             //Debug.Log("I DIED");
+            GM.PlayerKilled(ball.owner,playerIndex);
             frozen = false;
             animator.SetTrigger("Killed");
             alive = false;
@@ -105,7 +108,7 @@ public class Player : MonoBehaviour
 
                 if(ball && ball.owner != 0 && ball.owner != playerIndex)
                 {
-                    Die();
+                    Die(ball);
                 }
                 else
                 {

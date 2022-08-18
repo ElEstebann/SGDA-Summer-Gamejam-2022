@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
         switch(collision.gameObject.tag)
             {
                 case "Player":
-                    Debug.Log("Ball hit by " + collision.gameObject.tag);
+                    //Debug.Log("Ball hit by " + collision.gameObject.tag);
                     if(canBeCaught)
                     {
                         transform.SetParent(collision.gameObject.transform);
@@ -92,7 +92,7 @@ public class Ball : MonoBehaviour
 
     void ThrowTo(Vector2 force)
     {
-        Debug.Log("Trown!" + force);
+        //Debug.Log("Trown!" + force);
         transform.SetParent(GameObject.Find("Ball").transform);
         ReleaseBall();
 

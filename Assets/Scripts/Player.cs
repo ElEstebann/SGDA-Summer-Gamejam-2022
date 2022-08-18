@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
         rb.isKinematic = true; 
         rb.simulated = false;
         rb.velocity = Vector2.zero;
+        animator.SetTrigger("Hide");
     }
 
     public void Unhide()
@@ -154,6 +155,7 @@ public class Player : MonoBehaviour
         collider.enabled = true;
         rb.isKinematic = false; 
         rb.simulated = true;
+        animator.SetTrigger("Unhide");
     }
 
     

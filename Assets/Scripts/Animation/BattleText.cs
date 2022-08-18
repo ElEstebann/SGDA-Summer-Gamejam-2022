@@ -16,6 +16,8 @@ public class BattleText : MonoBehaviour
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
         GameManager.OnGameOver += GameOverScreen;
+        GameManager.OnGameRestart += Restart;
+
 
     }
 
@@ -35,5 +37,10 @@ public class BattleText : MonoBehaviour
         animator.SetBool("GameOver",true);
 
 
+    }
+    void Restart()
+    {
+        animator.SetTrigger("Restart");
+        animator.SetBool("GameOver",false);
     }
 }

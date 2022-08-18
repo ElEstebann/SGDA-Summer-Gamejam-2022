@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
     private bool canBeCaught = true;
     private SpriteRenderer sprite;
     private Collider2D collider;
@@ -15,16 +15,27 @@ public class Ball : MonoBehaviour
     private float currentDelay;
     private Color hue;
     private TrailRenderer trail;
+    private Vector3 originalPosition;
+    private float originalRotation;
+
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         hue = Color.blue;
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
+        originalPosition = transform.position;
+        originalRotation = rb.rotation;
+        GameManager.OnGameRestart += Reset;
 
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameRestart -= Reset;
     }
 
     // Update is called once per frame
@@ -46,7 +57,7 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         //Debug.Log(canBeCaught);
-        if(!canBeCaught && Mathf.Abs(rigidbody.velocity.magnitude) < pickupSpeed && currentDelay <= 0)
+        if(!canBeCaught && Mathf.Abs(rb.velocity.magnitude) < pickupSpeed && currentDelay <= 0)
         {
             EnableBall();
         }
@@ -96,7 +107,7 @@ public class Ball : MonoBehaviour
         transform.SetParent(GameObject.Find("Ball").transform);
         ReleaseBall();
 
-        rigidbody.AddForce(force);
+        rb.AddForce(force);
         sprite.color = hue;
         trail.enabled = true;
         trail.startColor = hue;
@@ -109,15 +120,15 @@ public class Ball : MonoBehaviour
     private void PickupBall()
     {
         collider.enabled = false;
-        rigidbody.isKinematic = true; 
-        rigidbody.simulated = false;
-        rigidbody.velocity = Vector2.zero;
+        rb.isKinematic = true; 
+        rb.simulated = false;
+        rb.velocity = Vector2.zero;
     }
 
     private void ReleaseBall()
     {
-        rigidbody.isKinematic = false; 
-        rigidbody.simulated = true;
+        rb.isKinematic = false; 
+        rb.simulated = true;
         collider.enabled = true;
         currentDelay = pickupDelay;
     }
@@ -128,5 +139,19 @@ public class Ball : MonoBehaviour
         canBeCaught = true;
         owner = 0;
         trail.enabled = false;
+    }
+
+    void Reset()
+    {
+        if(owner!=0)
+        {
+            ThrowTo(Vector2.zero);
+            EnableBall();
+        }
+        
+        rb.angularVelocity = 0;
+        rb.velocity = new Vector2(0f,0f);
+        rb.rotation = originalRotation;
+        transform.position = originalPosition;
     }
 }

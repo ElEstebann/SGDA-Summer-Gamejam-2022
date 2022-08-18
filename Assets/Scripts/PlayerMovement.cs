@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         GameManager.OnReviveAll += Eject;
         GameManager.OnUnpause += Unfreeze;
         GameManager.OnGameOver += Freeze;
+        GameManager.OnGameRestart += Reset;
     }
 
     void OnDestroy()
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         GameManager.OnReviveAll -= Eject;
         GameManager.OnUnpause -= Unfreeze;
         GameManager.OnGameOver -= Freeze;
+        GameManager.OnGameRestart -= Reset;
     }
 
     // Update is called once per frame
@@ -121,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
             }
 
             HandleInput(direction,shot);
+        }
+        else
+        {
+            HandleInput(new Vector2(0,0),false);
         }
     }
     void HandleInput(Vector2 dir,bool didShoot)
@@ -225,6 +231,21 @@ public class PlayerMovement : MonoBehaviour
     private void Unfreeze()
     {
         frozen = false;
+    }
+
+    public void Reset()
+    {
+        if(isPossessing)
+        {
+            Eject();
+        }
+        frozen = true;
+        shot = false;
+        canPossess = false;
+        isPossessing = false;
+        player.Reset();
+
+
     }
 
 }

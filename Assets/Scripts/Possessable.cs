@@ -14,12 +14,23 @@ public class Possessable : MonoBehaviour
     public int maxPlayersIn = 3;
     //public Color hue;
     private SpriteRenderer sprite;
+    private Vector3 originalPosition;
+    private float originalRotation;
     // Start is called before the first frame update
     void Start()
     {
         HideText();
         rb = transform.parent.transform.GetComponent<Rigidbody2D>();
         sprite = transform.parent.transform.GetComponent<SpriteRenderer>();
+        originalPosition = transform.position;
+        originalRotation = rb.rotation;
+        GameManager.OnGameRestart += Reset;
+
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameRestart -= Reset;
     }
 
     // Update is called once per frame
@@ -96,5 +107,13 @@ public class Possessable : MonoBehaviour
         reserved = false;
         DisplayText();
         sprite.color = Color.white;
+    }
+
+    void Reset()
+    {
+        rb.angularVelocity = 0;
+        rb.velocity = new Vector2(0f,0f);
+        rb.rotation = originalRotation;
+        transform.parent.position = originalPosition;
     }
 }

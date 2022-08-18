@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -98,6 +100,17 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("GAME RESTARTING");
+        if(paused)
+        {
+            Unpause();
+        }
+        if(OnGameRestart != null)
+        {
+            OnGameRestart();
+        }
+        killerPlayer = 0;
+        numDead = 0;
+        roundWinner = null;
     }
 
     public void Pause()

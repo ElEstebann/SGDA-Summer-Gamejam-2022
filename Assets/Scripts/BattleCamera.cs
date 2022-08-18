@@ -23,13 +23,27 @@ public class BattleCamera : MonoBehaviour
     [SerializeField]
     public int focusModifier = 1;
     private GameManager GM;
+
+    private Vector3 originalPosition;
+    private float originalZoom;
+    private int originalFocusIndex;
     void Start()
     {
         position = transform.position;
         cam = GetComponent<Camera>();
         zoom = cam.orthographicSize;
+        originalZoom = zoom;
+        originalFocusIndex = focusIndex;
+        originalPosition = transform.position;
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         GameManager.OnGameOver += SetWinnerFocus;
+        GameManager.OnGameRestart += Restart;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnGameOver -= SetWinnerFocus;
+        GameManager.OnGameRestart -= Restart;
     }
 
     // Update is called once per frame
@@ -109,5 +123,13 @@ public class BattleCamera : MonoBehaviour
     private void SetWinnerFocus()
     {
         SetFocus(GM.roundWinner.playerIndex-1);
+    }
+
+    private void Restart()
+    {
+        transform.position = originalPosition;
+        cam.orthographicSize = originalZoom;
+        SetFocus(originalFocusIndex);
+        
     }
 }

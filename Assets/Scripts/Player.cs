@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public Vector2 direction = Vector2.zero;
     private bool frozen;
     private Rigidbody2D rb;
-    public bool hasBall;
+    public bool hasBall = false;
   
     private float currentSpeed = 0;
     private float rotation;
@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     private GameObject hideObject;
     public Color hue;
     private GameManager GM;
+    public bool hidden = false;
+    
+    private Vector3 originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +39,7 @@ public class Player : MonoBehaviour
 
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
+        originalPosition = transform.position;
 
 
         GameManager.OnReviveAll +=Revive;
@@ -135,7 +140,7 @@ public class Player : MonoBehaviour
                 currentSpeed = speed;
                 direction = input;
                 direction.Normalize();
-                rotation = rotation = Mathf.Atan2(direction.y,direction.x)*180/Mathf.PI -90f;
+                rotation = Mathf.Atan2(direction.y,direction.x)*180/Mathf.PI -90f;
 
             }
 
@@ -144,21 +149,44 @@ public class Player : MonoBehaviour
 
     public void HideAt(GameObject position)
     {
-        transform.SetParent(position.transform);
-        collider.enabled = false;
-        rb.isKinematic = true; 
-        rb.simulated = false;
-        rb.velocity = Vector2.zero;
-        animator.SetTrigger("Hide");
+        if(!hidden)
+        {
+            transform.SetParent(position.transform);
+            collider.enabled = false;
+            rb.isKinematic = true; 
+            rb.simulated = false;
+            rb.velocity = Vector2.zero;
+            animator.SetTrigger("Hide");
+            hidden = true;
+        }
     }
 
     public void Unhide()
     {
-        transform.parent =  null;
-        collider.enabled = true;
-        rb.isKinematic = false; 
-        rb.simulated = true;
-        animator.SetTrigger("Unhide");
+        if(hidden)
+        {
+            transform.parent =  null;
+            collider.enabled = true;
+            rb.isKinematic = false; 
+            rb.simulated = true;
+            animator.SetTrigger("Unhide");
+            hidden = false;
+        }
+    }
+
+    public void Reset()
+    {
+        if(hidden)
+            Unhide();
+        if(!alive)
+            Revive();
+        hasBall = false;
+        transform.position = originalPosition;
+        rotation = 0;
+        rb.angularVelocity = 0f;
+        rb.velocity = new Vector2(0f,0f);
+        direction = new Vector2(0f,0f);
+        animator.SetTrigger("Reset");
     }
 
 

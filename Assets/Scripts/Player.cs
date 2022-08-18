@@ -158,5 +158,7 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Unhide");
     }
 
+
+
     
 }

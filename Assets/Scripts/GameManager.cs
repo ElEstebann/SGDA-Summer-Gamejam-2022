@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void Game();
     public static event Game OnReviveAll;
+    public static event Game OnUnpause;
     void Awake()
     {
         for(int i = 0; i < 4; i++)
@@ -28,6 +29,19 @@ public class GameManager : MonoBehaviour
                 if(OnReviveAll != null)
                     OnReviveAll();
             }
+    }
+
+    public void Begin()
+    {
+        if(OnUnpause != null)
+            StartCoroutine(DelayedStart());
+
+    }
+    private IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.25f);
+        OnUnpause();
+        Debug.Log("BEGIN!");
     }
 
 

@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool isPossessing = false;
     public Color hue;
+    private bool frozen = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,115 +23,119 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(hue);
         Debug.Log("Player" + player.playerIndex + " " + controlType);
         GameManager.OnReviveAll += Eject;
+        GameManager.OnUnpause += Unfreeze;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(controlType)
+        if(!frozen)
         {
-            case MultiplayerManager.controlType.Keyboard1:
-                direction.x = Input.GetAxis("Key1 Horizontal");
-                direction.y = Input.GetAxis("Key1 Vertical");
-                if(Input.GetButtonDown("Key1 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-
-            case MultiplayerManager.controlType.Keyboard2:
-                direction.x = Input.GetAxis("Key2 Horizontal");
-                direction.y = Input.GetAxis("Key2 Vertical");
-                if(Input.GetButtonDown("Key2 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-
-            case MultiplayerManager.controlType.Keyboard3:
-                direction.x = Input.GetAxis("Key3 Horizontal");
-                direction.y = Input.GetAxis("Key3 Vertical");
-                if(Input.GetButtonDown("Key3 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-
-            case MultiplayerManager.controlType.Keyboard4:
-                direction.x = Input.GetAxis("Key4 Horizontal");
-                direction.y = Input.GetAxis("Key4 Vertical");
-                if(Input.GetButtonDown("Key4 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-
-            case MultiplayerManager.controlType.Gamepad1:
-                direction.x = Input.GetAxis("Joy1 Horizontal");
-                direction.y = Input.GetAxis("Joy1 Vertical");
-                if(Input.GetButtonDown("Joy1 Fire"))
-                {
-                    shot = true;
-                }  
-                
-                break;
-
-
-            case MultiplayerManager.controlType.Gamepad2:
-                direction.x = Input.GetAxis("Joy2 Horizontal");
-                direction.y = Input.GetAxis("Joy2 Vertical");
-                if(Input.GetButtonDown("Joy2 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-                
-            case MultiplayerManager.controlType.Gamepad3:
-                direction.x = Input.GetAxis("Joy3 Horizontal");
-                direction.y = Input.GetAxis("Joy3 Vertical");
-                if(Input.GetButtonDown("Joy3 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-
-            case MultiplayerManager.controlType.Gamepad4:
-                direction.x = Input.GetAxis("Joy4 Horizontal");
-                direction.y = Input.GetAxis("Joy4 Vertical");
-                if(Input.GetButtonDown("Joy4 Fire"))
-                {
-                    shot = true;
-                }  
-                break;
-            default:
-                break;
-        }
-
-        if(isPossessing)
-        {
-            possessable.HandleMovement(direction);
-        }
-        else
-        {
-            player.HandleMovement(direction);
-        }
-        
-        if(shot)
-        {
-            if(canPossess)
+            switch(controlType)
             {
-                Possess();
+                case MultiplayerManager.controlType.Keyboard1:
+                    direction.x = Input.GetAxis("Key1 Horizontal");
+                    direction.y = Input.GetAxis("Key1 Vertical");
+                    if(Input.GetButtonDown("Key1 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+
+                case MultiplayerManager.controlType.Keyboard2:
+                    direction.x = Input.GetAxis("Key2 Horizontal");
+                    direction.y = Input.GetAxis("Key2 Vertical");
+                    if(Input.GetButtonDown("Key2 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+
+                case MultiplayerManager.controlType.Keyboard3:
+                    direction.x = Input.GetAxis("Key3 Horizontal");
+                    direction.y = Input.GetAxis("Key3 Vertical");
+                    if(Input.GetButtonDown("Key3 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+
+                case MultiplayerManager.controlType.Keyboard4:
+                    direction.x = Input.GetAxis("Key4 Horizontal");
+                    direction.y = Input.GetAxis("Key4 Vertical");
+                    if(Input.GetButtonDown("Key4 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+
+                case MultiplayerManager.controlType.Gamepad1:
+                    direction.x = Input.GetAxis("Joy1 Horizontal");
+                    direction.y = Input.GetAxis("Joy1 Vertical");
+                    if(Input.GetButtonDown("Joy1 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    
+                    break;
+
+
+                case MultiplayerManager.controlType.Gamepad2:
+                    direction.x = Input.GetAxis("Joy2 Horizontal");
+                    direction.y = Input.GetAxis("Joy2 Vertical");
+                    if(Input.GetButtonDown("Joy2 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+                    
+                case MultiplayerManager.controlType.Gamepad3:
+                    direction.x = Input.GetAxis("Joy3 Horizontal");
+                    direction.y = Input.GetAxis("Joy3 Vertical");
+                    if(Input.GetButtonDown("Joy3 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+
+                case MultiplayerManager.controlType.Gamepad4:
+                    direction.x = Input.GetAxis("Joy4 Horizontal");
+                    direction.y = Input.GetAxis("Joy4 Vertical");
+                    if(Input.GetButtonDown("Joy4 Fire"))
+                    {
+                        shot = true;
+                    }  
+                    break;
+                default:
+                    break;
             }
-            else if(isPossessing)
+
+            if(isPossessing)
             {
-                Eject();
+                possessable.HandleMovement(direction);
             }
             else
             {
-                player.ThrowBall();
+                player.HandleMovement(direction);
             }
-            shot = false;
-        }  
+            
+            if(shot)
+            {
+                if(canPossess)
+                {
+                    Possess();
+                }
+                else if(isPossessing)
+                {
+                    Eject();
+                }
+                else
+                {
+                    player.ThrowBall();
+                }
+                shot = false;
+            }  
+        }
     }
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -194,5 +199,15 @@ public class PlayerMovement : MonoBehaviour
             player.Unhide();
             possessable = null;
         }
+    }
+
+    private void Freeze()
+    {
+        frozen = true;
+    }
+
+    private void Unfreeze()
+    {
+        frozen = false;
     }
 }

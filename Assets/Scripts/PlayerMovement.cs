@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public Color hue;
     [SerializeField]
     private bool frozen = true;
+
     // Start is called before the first frame update
     void Start()
     {

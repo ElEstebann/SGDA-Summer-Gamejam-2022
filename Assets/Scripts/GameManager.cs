@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     public Player roundWinner;
     public int numDead = 0;
     public int killerPlayer = 0;
+    [SerializeField]
+    private GameObject pauseMenu;
+    private bool canPause = false;
+    private bool paused = false;
     void Awake()
     {
         for(int i = 0; i < 4; i++)
@@ -23,15 +27,17 @@ public class GameManager : MonoBehaviour
             PlayerMovement PM = players[i].GetComponent<PlayerMovement>();
             PM.controlType = MultiplayerManager.instance.playerControls[i];
             PM.hue = MultiplayerManager.instance.playerColors[i];
+            pauseMenu = transform.Find("Canvas").gameObject;
+            HidePauseMenu();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire3"))
+        if(Input.GetButtonDown("Universal Pause"))
             {
-                ReviveAll();
+                Pause();
             }
     }
 
@@ -46,6 +52,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         OnUnpause();
         Debug.Log("BEGIN!");
+        canPause = true;
     }
 
     public void ReviveAll()
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GAME IS OVER. PLAYER " + winner + " WINS!");
         roundWinner = players[winner-1].transform.GetComponent<Player>();
+        canPause = false;
         if(OnGameOver != null)
         {
             OnGameOver();
@@ -89,8 +97,44 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-  
+        Debug.Log("GAME RESTARTING");
     }
+
+    public void Pause()
+    {
+        if(canPause)
+        {
+            Time.timeScale = 0f;
+            ShowPauseMenu();
+            paused = true;
+        }
+    }
+
+    public void Unpause()
+    {
+        if(paused)
+        {
+            HidePauseMenu();
+            Time.timeScale = 1f;
+            paused = false;
+            if(OnUnpause != null)
+            {
+                OnUnpause();
+            }
+        }
+    }
+
+    private void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
+    private void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+    }
+    
+
 
 
 

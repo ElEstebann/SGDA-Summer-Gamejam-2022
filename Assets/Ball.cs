@@ -13,12 +13,17 @@ public class Ball : MonoBehaviour
     public int owner = 0;
     public float pickupDelay;
     private float currentDelay;
+    private Color hue;
+    private TrailRenderer trail;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
+        hue = Color.blue;
+        trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
 
     }
 
@@ -63,8 +68,10 @@ public class Ball : MonoBehaviour
                         transform.SetParent(collision.gameObject.transform);
                         PickupBall();
                         Player player = transform.parent.GetComponent<Player>();
+                        
                         player.GetBall();
                         owner = player.playerIndex;
+                        hue = player.hue;
 
                     }
                     else
@@ -90,8 +97,12 @@ public class Ball : MonoBehaviour
         ReleaseBall();
 
         rigidbody.AddForce(force);
-        sprite.color = Color.red;
+        sprite.color = hue;
+        trail.enabled = true;
+        trail.startColor = hue;
+        trail.endColor = hue;
         canBeCaught = false;
+        
         
     }
 
@@ -116,5 +127,6 @@ public class Ball : MonoBehaviour
         sprite.color = Color.white;
         canBeCaught = true;
         owner = 0;
+        trail.enabled = false;
     }
 }

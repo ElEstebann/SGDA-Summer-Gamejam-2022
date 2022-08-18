@@ -10,12 +10,13 @@ public class GameManager : MonoBehaviour
 
     public delegate void Game();
     public static event Game OnReviveAll;
-    void Start()
+    void Awake()
     {
         for(int i = 0; i < 4; i++)
         {
             PlayerMovement PM = players[i].GetComponent<PlayerMovement>();
             PM.controlType = MultiplayerManager.instance.playerControls[i];
+            PM.hue = MultiplayerManager.instance.playerColors[i];
         }
     }
 

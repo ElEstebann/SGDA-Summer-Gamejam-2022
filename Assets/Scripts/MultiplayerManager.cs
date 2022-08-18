@@ -22,6 +22,7 @@ public class MultiplayerManager : MonoBehaviour
     }
 
     public controlType[] playerControls = new controlType[4];
+    public Color[] playerColors = new Color[4];
     
     void Awake()    
     {

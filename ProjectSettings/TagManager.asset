@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Arena
   - Ball
+  - Possessable
   layers:
   - Default
   - TransparentFX

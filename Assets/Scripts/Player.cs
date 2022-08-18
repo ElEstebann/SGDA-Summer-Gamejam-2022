@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     public bool alive = true;
     private Collider2D collider;
+    private bool hiding = false;
+    private GameObject hideObject;
+    public Color hue;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +35,18 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
 
+
         GameManager.OnReviveAll +=Revive;
+        hideObject = null;
     }
 
     // Update is called once per frame
     void Update()
     {    
+        if(hiding)
+        {
+            transform.position = hideObject.transform.position;
+        }
     }
 
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
@@ -111,7 +120,7 @@ public class Player : MonoBehaviour
 
     public void HandleMovement(Vector2 input)
     {
-        Debug.Log("player:" + playerIndex + " " + input);
+        //Debug.Log("player:" + playerIndex + " " + input);
         if(!frozen)
         {
             if(input == Vector2.zero)
@@ -128,6 +137,23 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
+
+    public void HideAt(GameObject position)
+    {
+        transform.SetParent(position.transform);
+        collider.enabled = false;
+        rb.isKinematic = true; 
+        rb.simulated = false;
+        rb.velocity = Vector2.zero;
+    }
+
+    public void Unhide()
+    {
+        transform.parent =  null;
+        collider.enabled = true;
+        rb.isKinematic = false; 
+        rb.simulated = true;
     }
 
     

@@ -5,15 +5,23 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Player player;
-    private Possessable posessable; 
+    [SerializeField]
+    private Possessable possessable; 
     private Vector2 direction = Vector2.zero;
     public MultiplayerManager.controlType controlType;
     private bool shot = false;
+    private bool canPossess = false;
+    [SerializeField]
+    private bool isPossessing = false;
+    public Color hue;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
+        player.hue = hue;
+        Debug.Log(hue);
         Debug.Log("Player" + player.playerIndex + " " + controlType);
+        GameManager.OnReviveAll += Eject;
     }
 
     // Update is called once per frame
@@ -98,34 +106,93 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
 
-        player.HandleMovement(direction);
+        if(isPossessing)
+        {
+            possessable.HandleMovement(direction);
+        }
+        else
+        {
+            player.HandleMovement(direction);
+        }
+        
         if(shot)
         {
-            player.ThrowBall();
+            if(canPossess)
+            {
+                Possess();
+            }
+            else if(isPossessing)
+            {
+                Eject();
+            }
+            else
+            {
+                player.ThrowBall();
+            }
             shot = false;
         }  
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         //Debug.Log(collision.gameObject.tag);
-        /*switch(collision.gameObject.tag)
+        switch(collision.gameObject.tag)
         {
-            case "Ball":
-                Ball ball = collision.gameObject.transform.GetComponent<Ball>();
-
-                if(ball && ball.owner != 0 && ball.owner != playerIndex)
+            case "Possessable":
+                if(!isPossessing)
                 {
-                    Die();
-                }
-                else
-                {
-
+                    possessable = collision.gameObject.transform.GetComponent<Possessable>();
+                    
+                    canPossess = true;
                 }
                 break;
 
             default:
                 break;
         }
-        */
+        
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        //Debug.Log(collision.gameObject.tag);
+        switch(collision.gameObject.tag)
+        {
+            case "Possessable":
+                if(!isPossessing)
+                {
+                    possessable = collision.gameObject.transform.GetComponent<Possessable>();
+                    
+                    canPossess = false;
+                    possessable = null;
+                }
+                break;
+
+            default:
+                break;
+        }
+        
+    }
+
+    private void Possess()
+    {
+        if(possessable && canPossess)
+        {
+            isPossessing = true;
+            canPossess = false;
+            possessable.Reserve(hue);
+            player.HideAt(possessable.gameObject);
+        }
+    }
+
+    public void Eject()
+    {
+        if(isPossessing)
+        {
+            isPossessing = false;
+            canPossess = false;
+            possessable.Unreserve();
+            player.Unhide();
+            possessable = null;
+        }
     }
 }

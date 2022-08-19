@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ffa4795cd84c647bcdb4c14aeceb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSpeed: 0.5
+  pickupSpeed: 1
   owner: 0
   pickupDelay: 1
 --- !u!212 &6481551503801362183

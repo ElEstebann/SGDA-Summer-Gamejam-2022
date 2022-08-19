@@ -35,6 +35,17 @@ public class Player : MonoBehaviour
     private SpriteRenderer aliveSprite;
     private SpriteRenderer deadSprite;
     public bool stunned = false;
+    [SerializeField]
+    private float dashModifier = 1.5f;
+    public bool dashing = false;
+    [SerializeField]
+    private float dashImmunity = 1f;
+    [SerializeField]
+    private float deathProtection = 1f;
+
+    private float currentDashImmunity = 0f;
+    private float currentDeathProtection = 0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +70,7 @@ public class Player : MonoBehaviour
         aliveSprite = transform.Find("AliveSprite").GetComponent<SpriteRenderer>();
         deadSprite = transform.Find("DeadSprite").GetComponent<SpriteRenderer>();
 
+
         arrow.color = new Color(hue.r,hue.g,hue.b,0.5f);
         backing.color = new Color(hue.r,hue.g,hue.b,0.5f);
 
@@ -72,32 +84,55 @@ public class Player : MonoBehaviour
             transform.position = hideObject.transform.position;
         }
         rotationJoint.rotation = Quaternion.Euler(0, 0, rotation);
+
+        
+        if(currentDeathProtection > 0)
+        {
+            currentDeathProtection -= Time.deltaTime;
+        }
+        if(currentDashImmunity > 0)
+        {
+            currentDashImmunity -= Time.deltaTime;
+        }
+
+        animator.SetFloat("DeathProtection",currentDeathProtection);
+        animator.SetFloat("DashImmunity",currentDashImmunity);
+
     }
 
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
     {
-            //rb.rotation = rotation;
-            if(!hasBall && !stunned)
+        //rb.rotation = rotation;
+        if(!hasBall)
+        {
+            if(dashing)
+            {
+                rb.velocity = direction*speed * dashModifier;
+            }
+            else if(!stunned)
             {
                 rb.velocity = direction*currentSpeed;
-                animator.SetFloat("MoveSpeed",currentSpeed);
-                if(direction.x <= 0)
-                {
-                    aliveSprite.flipX = false;
-                    deadSprite.flipX = false;
-                }
-                else
-                {
-                    aliveSprite.flipX = true;
-                    deadSprite.flipX = true;
-                    
-                }
-                
+            }
+
+            animator.SetFloat("MoveSpeed",currentSpeed);
+            if(direction.x <= 0)
+            {
+                aliveSprite.flipX = false;
+                deadSprite.flipX = false;
             }
             else
             {
-                animator.SetFloat("MoveSpeed",0f);
-            }
+                aliveSprite.flipX = true;
+                deadSprite.flipX = true;
+                
+            } 
+        }
+        else
+        {
+            animator.SetFloat("MoveSpeed",0f);
+        }
+
+
     }
 
     public void ThrowBall()
@@ -108,12 +143,45 @@ public class Player : MonoBehaviour
             //Debug.Log("Ball Thrown");
             BroadcastMessage("ThrowTo",direction*throwForce);
             //Debug.Log("Throwing: " + direction + " " + throwForce);
+            animator.SetBool("HasBall",hasBall);
+        }
+        else
+        {
+            Dash();
+        }
+    }
+    public void DropBall()
+    {
+        if(hasBall)
+        {
+            hasBall = false;
+            BroadcastMessage("ThrowTo",Vector2.zero);
+        }
+    }
+
+    public void Dash()
+    {
+        if(alive && !stunned && !dashing)
+        {
+        dashing = true;
+        animator.SetTrigger("Dash");
+        }
+    }
+
+    public void EndDash()
+    {  
+        if(dashing)
+        {
+            Debug.Log("EndDash");
+            dashing = false;
+            currentSpeed =0;
         }
     }
     public void GetBall()
     {
         hasBall = true;
         rb.velocity = Vector2.zero;
+        animator.SetBool("HasBall",hasBall);
     }
 
     public void Die(Ball ball)
@@ -127,9 +195,16 @@ public class Player : MonoBehaviour
             alive = false;
             //collider.enabled = false;
             gameObject.layer = LayerMask.NameToLayer("Ghost");
+            ResetProtections();
         }
         
 
+    }
+
+    public void ResetProtections()
+    {
+        currentDashImmunity = 0f;
+        currentDeathProtection = 0f;
     }
 
     public void Revive()
@@ -139,6 +214,7 @@ public class Player : MonoBehaviour
             animator.SetBool("Alive",true);
             alive = true;
             gameObject.layer = LayerMask.NameToLayer("Default");
+            currentDeathProtection = deathProtection;
         }
     }
 
@@ -150,18 +226,50 @@ public class Player : MonoBehaviour
             case "Ball":
                 Ball ball = collision.gameObject.transform.GetComponent<Ball>();
 
-                if(ball && ball.owner != 0 && ball.owner != playerIndex)
+                if(ball && ball.owner != 0 && ball.owner != playerIndex && currentDeathProtection <= 0)
                 {
                     Die(ball);
                 }
-                else
+                else if(ball && !hasBall && ball.owner == playerIndex)
                 {
-
+                    Knockback();
+                    Debug.Log("Player" + playerIndex + " hit by own ball" + ball.owner);
+                    
                 }
                 break;
 
             default:
                 break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collide)
+    {
+        switch(collide.gameObject.tag)
+        {
+            case "Attack":
+                if(currentDashImmunity <= 0)
+                {
+                    Knockback();
+                    currentDashImmunity = dashImmunity;
+                    Debug.Log("Player" + playerIndex + " hit by dash attack");
+
+                }
+
+                break;
+
+
+            default:
+            break;
+        }
+    }
+
+    public void Knockback()
+    {
+        animator.SetTrigger("Stun");
+        if(hasBall)
+        {
+            DropBall();
         }
     }
 
@@ -186,7 +294,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            currentSpeed = 0;
+            currentSpeed = -1;
         }
     }
 
@@ -231,7 +339,18 @@ public class Player : MonoBehaviour
         direction = new Vector2(0f,0f);
         animator.SetTrigger("Reset");
         rotationJoint.rotation = Quaternion.Euler(0, 0, 0);
+        ResetProtections();
+        //ResetAnimator();
+
     }
+    public void ResetAnimator()
+    {
+        animator.SetBool("HasBall",false);
+        animator.SetBool("Alive",true);
+
+  
+    }
+
 
 
 

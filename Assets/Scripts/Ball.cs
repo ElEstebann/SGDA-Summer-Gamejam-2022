@@ -67,6 +67,46 @@ public class Ball : MonoBehaviour
             currentDelay -= Time.deltaTime;
         }
     }
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if(owner == 0)
+        {
+        switch(collision.gameObject.tag)
+            {
+                case "Player":
+                    //Debug.Log("Ball hit by " + collision.gameObject.tag);
+                    if(canBeCaught)
+                    {
+                        //transform.SetParent(collision.gameObject.transform);
+                        Player player = collision.gameObject.transform.GetComponent<Player>();
+                        if(!player.stunned || player.dashing)
+                        {
+                            PickupBall();
+                            transform.SetParent(player.ballPlacement);
+                            transform.localPosition = Vector3.zero;
+                            
+                            player.GetBall();
+                            owner = player.playerIndex;
+                            hue = player.hue;
+                        }
+
+                    }
+                    else
+                    {
+
+                    }
+
+                    break;
+                case "Arena":
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(owner == 0)
@@ -78,14 +118,17 @@ public class Ball : MonoBehaviour
                     if(canBeCaught)
                     {
                         //transform.SetParent(collision.gameObject.transform);
-                        PickupBall();
                         Player player = collision.gameObject.transform.GetComponent<Player>();
-                        transform.SetParent(player.ballPlacement);
-                        transform.localPosition = Vector3.zero;
-                        
-                        player.GetBall();
-                        owner = player.playerIndex;
-                        hue = player.hue;
+                        if(!player.stunned || player.dashing)
+                        {
+                            PickupBall();
+                            transform.SetParent(player.ballPlacement);
+                            transform.localPosition = Vector3.zero;
+                            
+                            player.GetBall();
+                            owner = player.playerIndex;
+                            hue = player.hue;
+                        }
 
                     }
                     else
@@ -109,12 +152,19 @@ public class Ball : MonoBehaviour
         //Debug.Log("Trown!" + force);
         transform.SetParent(GameObject.Find("Ball").transform);
         ReleaseBall();
+        if(force != Vector2.zero)
+        {
 
         rb.AddForce(force);
         sprite.color = hue;
         trail.enabled = true;
         trail.startColor = hue;
         trail.endColor = hue;
+        }
+        else
+        {
+            owner = 0;
+        }
         canBeCaught = false;
         
         

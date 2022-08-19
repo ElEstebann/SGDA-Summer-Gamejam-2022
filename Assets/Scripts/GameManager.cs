@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class GameManager : MonoBehaviour
     private GameObject pauseMenu;
     private bool canPause = false;
     private bool paused = false;
+    [SerializeField]
+    private Button resumeButton;
+    [SerializeField]
+    private Button replayButton;
+
+
+
+    
     void Awake()
     {
         for(int i = 0; i < 4; i++)
@@ -90,11 +99,15 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GAME IS OVER. PLAYER " + winner + " WINS!");
         roundWinner = players[winner-1].transform.GetComponent<Player>();
+        MultiplayerManager.instance.Win(roundWinner.playerIndex);
         canPause = false;
+        replayButton.Select();
         if(OnGameOver != null)
         {
+            Debug.Log("ON GAME OVER");
             OnGameOver();
         }
+        
     }
 
     public void RestartGame()
@@ -115,12 +128,18 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        if(canPause)
+        if(paused)
+        {
+            Unpause();
+        }
+        else if(canPause)
         {
             Time.timeScale = 0f;
             ShowPauseMenu();
+            resumeButton.Select();
             paused = true;
         }
+        
     }
 
     public void Unpause()

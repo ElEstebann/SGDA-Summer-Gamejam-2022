@@ -22,6 +22,7 @@ public class MultiplayerManager : MonoBehaviour
     }
 
     public controlType[] playerControls = new controlType[4];
+    public int[] wins = {0,0,0,0};
     public Color[] playerColors = new Color[4];
     
     void Awake()    
@@ -53,6 +54,15 @@ public class MultiplayerManager : MonoBehaviour
 
 
         }
+    }
+
+    public void Win(int player)
+    {
+        wins[player-1]++;
+    }
+
+    public void Reset()
+    {
     }
     
 

@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer arrow;
     private SpriteRenderer aliveSprite;
     private SpriteRenderer deadSprite;
+    public bool stunned = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
     {
             //rb.rotation = rotation;
-            if(!hasBall)
+            if(!hasBall && !stunned)
             {
                 rb.velocity = direction*currentSpeed;
                 animator.SetFloat("MoveSpeed",currentSpeed);
@@ -167,7 +168,7 @@ public class Player : MonoBehaviour
     public void HandleMovement(Vector2 input)
     {
         //Debug.Log("player:" + playerIndex + " " + input);
-        if(!frozen)
+        if(!stunned)
         {
             if(input == Vector2.zero)
             {
@@ -182,6 +183,10 @@ public class Player : MonoBehaviour
 
             }
 
+        }
+        else
+        {
+            currentSpeed = 0;
         }
     }
 

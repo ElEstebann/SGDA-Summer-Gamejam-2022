@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         deadSprite = transform.Find("DeadSprite").GetComponent<SpriteRenderer>();
 
 
-        arrow.color = new Color(hue.r,hue.g,hue.b,0.5f);
+        arrow.color = new Color(hue.r,hue.g,hue.b,0f);
         backing.color = new Color(hue.r,hue.g,hue.b,0.5f);
 
     }
@@ -144,6 +144,7 @@ public class Player : MonoBehaviour
             BroadcastMessage("ThrowTo",direction*throwForce);
             //Debug.Log("Throwing: " + direction + " " + throwForce);
             animator.SetBool("HasBall",hasBall);
+            arrow.color = new Color(hue.r,hue.g,hue.b,0f);
         }
         else
         {
@@ -156,6 +157,7 @@ public class Player : MonoBehaviour
         {
             hasBall = false;
             BroadcastMessage("ThrowTo",Vector2.zero);
+            arrow.color = new Color(hue.r,hue.g,hue.b,0f);
         }
     }
 
@@ -182,6 +184,7 @@ public class Player : MonoBehaviour
         hasBall = true;
         rb.velocity = Vector2.zero;
         animator.SetBool("HasBall",hasBall);
+        arrow.color = new Color(hue.r,hue.g,hue.b,1f);
     }
 
     public void Die(Ball ball)
@@ -340,7 +343,8 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Reset");
         rotationJoint.rotation = Quaternion.Euler(0, 0, 0);
         ResetProtections();
-        //ResetAnimator();
+        arrow.color = new Color(hue.r,hue.g,hue.b,0f);
+        ResetAnimator();
 
     }
     public void ResetAnimator()

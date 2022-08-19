@@ -26,8 +26,14 @@ public class Player : MonoBehaviour
     public Color hue;
     private GameManager GM;
     public bool hidden = false;
+    public Transform rotationJoint;
+    public Transform ballPlacement;
     
     private Vector3 originalPosition;
+    private SpriteRenderer backing;
+    private SpriteRenderer arrow;
+    private SpriteRenderer aliveSprite;
+    private SpriteRenderer deadSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +51,16 @@ public class Player : MonoBehaviour
         GameManager.OnReviveAll +=Revive;
         hideObject = null;
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        rotationJoint = transform.Find("Joint").transform;
+        ballPlacement = rotationJoint.Find("BallPlacement").transform;
+        arrow = rotationJoint.Find("Arrow").transform.GetComponent<SpriteRenderer>();
+        backing = transform.Find("Body").transform.GetComponent<SpriteRenderer>();
+        aliveSprite = transform.Find("AliveSprite").GetComponent<SpriteRenderer>();
+        deadSprite = transform.Find("DeadSprite").GetComponent<SpriteRenderer>();
+
+        arrow.color = new Color(hue.r,hue.g,hue.b,0.5f);
+        backing.color = new Color(hue.r,hue.g,hue.b,0.5f);
+
     }
 
     // Update is called once per frame
@@ -54,12 +70,33 @@ public class Player : MonoBehaviour
         {
             transform.position = hideObject.transform.position;
         }
+        rotationJoint.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
     private void FixedUpdate() // using fixed update instead of Update to decrease jitter
     {
-            rb.rotation = rotation;
-            rb.velocity = direction*currentSpeed;
+            //rb.rotation = rotation;
+            if(!hasBall)
+            {
+                rb.velocity = direction*currentSpeed;
+                animator.SetFloat("MoveSpeed",currentSpeed);
+                if(direction.x <= 0)
+                {
+                    aliveSprite.flipX = false;
+                    deadSprite.flipX = false;
+                }
+                else
+                {
+                    aliveSprite.flipX = true;
+                    deadSprite.flipX = true;
+                    
+                }
+                
+            }
+            else
+            {
+                animator.SetFloat("MoveSpeed",0f);
+            }
     }
 
     public void ThrowBall()
@@ -75,6 +112,7 @@ public class Player : MonoBehaviour
     public void GetBall()
     {
         hasBall = true;
+        rb.velocity = Vector2.zero;
     }
 
     public void Die(Ball ball)
@@ -84,7 +122,7 @@ public class Player : MonoBehaviour
             //Debug.Log("I DIED");
             GM.PlayerKilled(ball.owner,playerIndex);
             frozen = false;
-            animator.SetTrigger("Killed");
+            animator.SetBool("Alive",false);
             alive = false;
             //collider.enabled = false;
             gameObject.layer = LayerMask.NameToLayer("Ghost");
@@ -97,7 +135,7 @@ public class Player : MonoBehaviour
     {
         if(!alive)
         {
-            animator.SetTrigger("Revived");
+            animator.SetBool("Alive",true);
             alive = true;
             gameObject.layer = LayerMask.NameToLayer("Default");
         }
@@ -156,7 +194,7 @@ public class Player : MonoBehaviour
             rb.isKinematic = true; 
             rb.simulated = false;
             rb.velocity = Vector2.zero;
-            animator.SetTrigger("Hide");
+            animator.SetBool("Hidden",true);
             hidden = true;
         }
     }
@@ -169,7 +207,7 @@ public class Player : MonoBehaviour
             collider.enabled = true;
             rb.isKinematic = false; 
             rb.simulated = true;
-            animator.SetTrigger("Unhide");
+            animator.SetBool("Hidden",false);
             hidden = false;
         }
     }
@@ -187,6 +225,7 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(0f,0f);
         direction = new Vector2(0f,0f);
         animator.SetTrigger("Reset");
+        rotationJoint.rotation = Quaternion.Euler(0, 0, 0);
     }
 
 

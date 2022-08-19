@@ -17,6 +17,7 @@ public class Ball : MonoBehaviour
     private TrailRenderer trail;
     private Vector3 originalPosition;
     private float originalRotation;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -76,9 +77,11 @@ public class Ball : MonoBehaviour
                     //Debug.Log("Ball hit by " + collision.gameObject.tag);
                     if(canBeCaught)
                     {
-                        transform.SetParent(collision.gameObject.transform);
+                        //transform.SetParent(collision.gameObject.transform);
                         PickupBall();
-                        Player player = transform.parent.GetComponent<Player>();
+                        Player player = collision.gameObject.transform.GetComponent<Player>();
+                        transform.SetParent(player.ballPlacement);
+                        transform.localPosition = Vector3.zero;
                         
                         player.GetBall();
                         owner = player.playerIndex;

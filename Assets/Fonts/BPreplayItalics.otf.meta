@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ab8d474c9803f264e963c436468841a7
+guid: 8a00d634e552d834eb44f8e10dd174cd
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -11,8 +11,6 @@ TrueTypeFontImporter:
   fontNames:
   - BPreplay
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 8a00d634e552d834eb44f8e10dd174cd, type: 3}
-  - {fileID: 12800000, guid: bab0e14409a482c479a06f0a6821b499, type: 3}
   - {fileID: 12800000, guid: 04be145589799c34498d497c15087543, type: 3}
   customCharacters: 
   fontRenderingMode: 0

@@ -22,6 +22,7 @@ public class Countdown3 : StateMachineBehaviour
         {
             text.fontSize = fontSize;
         }
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

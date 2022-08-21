@@ -43,4 +43,9 @@ public class BattleText : MonoBehaviour
         animator.SetTrigger("Restart");
         animator.SetBool("GameOver",false);
     }
+
+    public void PlayCountDown()
+    {
+        GM.PlayCountDown();
+    }
 }

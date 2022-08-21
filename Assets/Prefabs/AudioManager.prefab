@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6280284724408557861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3958363149392797912}
+  - component: {fileID: 8421665857472984525}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3958363149392797912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280284724408557861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.6268337, y: 3.6502948, z: 0.07401647}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8421665857472984525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280284724408557861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf85a2bd6064ee246bb241cba34c7dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 24100000, guid: e21bf4895ac51e9428391ebea16af138, type: 2}
+  sfxGroup: {fileID: 24300002, guid: 4438d0ae96aab8b4aa544c5c20339c78, type: 2}
+  sounds:
+  - name: Carnival
+    clip: {fileID: 8300000, guid: bfaf0070aa97ae2408a0f1ab8704bdde, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    bgm: 1
+    source: {fileID: 0}
+  - name: Victory
+    clip: {fileID: 8300000, guid: 100c29ec6a5a29645ab510bbc6e93852, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 1
+    source: {fileID: 0}
+  - name: Results
+    clip: {fileID: 8300000, guid: 82af55a9d42b83c44b1f4ece6b2a3360, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 1
+    source: {fileID: 0}
+  - name: 321Fight
+    clip: {fileID: 8300000, guid: 575d12c3d2619c54c93aab8211f8c47c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 0
+    source: {fileID: 0}

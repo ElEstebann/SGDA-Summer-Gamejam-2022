@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Button resumeButton;
     [SerializeField]
     private Button replayButton;
+    private bool canCountdown = true;
 
 
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
             PM.hue = MultiplayerManager.instance.playerColors[i];
             pauseMenu = transform.Find("Canvas").gameObject;
             HidePauseMenu();
+            
         }
     }
 
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
         OnUnpause();
         Debug.Log("BEGIN!");
         canPause = true;
+        AudioManager.instance.Play("Carnival");
     }
 
     public void ReviveAll()
@@ -107,12 +110,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("ON GAME OVER");
             OnGameOver();
         }
+        AudioManager.instance.Stop("Carnival");
+        AudioManager.instance.Play("Victory");
         
     }
 
     public void RestartGame()
     {
         Debug.Log("GAME RESTARTING");
+        AudioManager.instance.Stop("Carnival");
+        AudioManager.instance.Stop("Results");
         if(paused)
         {
             Unpause();
@@ -124,6 +131,8 @@ public class GameManager : MonoBehaviour
         killerPlayer = 0;
         numDead = 0;
         roundWinner = null;
+        canCountdown = true;
+        canPause = false;
     }
 
     public void Pause()
@@ -166,6 +175,14 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
     }
     
+    public void PlayCountDown()
+    {
+        if(canCountdown)
+        {
+            AudioManager.instance.Play("321Fight");
+            canCountdown = false;
+        }
+    }
 
 
 

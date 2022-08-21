@@ -218,6 +218,7 @@ public class Player : MonoBehaviour
             alive = true;
             gameObject.layer = LayerMask.NameToLayer("Default");
             currentDeathProtection = deathProtection;
+            
         }
     }
 
@@ -325,6 +326,7 @@ public class Player : MonoBehaviour
             rb.simulated = true;
             animator.SetBool("Hidden",false);
             hidden = false;
+            transform.rotation = Quaternion.Euler(0f,0f,0f);
         }
     }
 

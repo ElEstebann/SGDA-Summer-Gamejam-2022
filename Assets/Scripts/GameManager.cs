@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour
     private bool canCountdown = true;
 
 
-
     
     void Awake()
     {
@@ -37,10 +37,14 @@ public class GameManager : MonoBehaviour
             PlayerMovement PM = players[i].GetComponent<PlayerMovement>();
             PM.controlType = MultiplayerManager.instance.playerControls[i];
             PM.hue = MultiplayerManager.instance.playerColors[i];
+            Player PMPlayer = PM.gameObject.transform.GetComponent<Player>();
+            PMPlayer.characterType = MultiplayerManager.instance.characters[i];
             pauseMenu = transform.Find("Canvas").gameObject;
             SpriteRenderer SR = PM.gameObject.transform.Find("AliveSprite").GetComponent<SpriteRenderer>();
             SR.sprite = MultiplayerManager.instance.playerSprites[i];
             HidePauseMenu();
+
+
             
         }
     }
@@ -184,6 +188,20 @@ public class GameManager : MonoBehaviour
             AudioManager.instance.Play("321Fight");
             canCountdown = false;
         }
+    }
+
+    public void Menu()
+    {
+        Unpause();
+        AudioManager.instance.Stop("Carnival");
+        AudioManager.instance.Stop("Results");
+        SceneManager.LoadScene(0);
+       
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
 

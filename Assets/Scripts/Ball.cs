@@ -109,8 +109,10 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
         if(owner == 0)
         {
+        AudioManager.instance.Play("BallHit");
         switch(collision.gameObject.tag)
             {
                 case "Player":
@@ -154,7 +156,7 @@ public class Ball : MonoBehaviour
         ReleaseBall();
         if(force != Vector2.zero)
         {
-
+        AudioManager.instance.Play("BallThrow");
         rb.AddForce(force);
         sprite.color = hue;
         trail.enabled = true;
@@ -172,6 +174,7 @@ public class Ball : MonoBehaviour
 
     private void PickupBall()
     {
+        AudioManager.instance.Play("BallPickUp");
         collider.enabled = false;
         rb.isKinematic = true; 
         rb.simulated = false;

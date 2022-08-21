@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
                 if(!isPossessing)
                 {
                     possessable = collision.gameObject.transform.GetComponent<Possessable>();
-                    if(!possessable.reserved)
+                    if(possessable && !possessable.reserved)
                     {
                         canPossess = true;
                     }

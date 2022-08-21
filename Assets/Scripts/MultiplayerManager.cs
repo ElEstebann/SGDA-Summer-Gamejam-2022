@@ -21,10 +21,19 @@ public class MultiplayerManager : MonoBehaviour
         Gamepad4,
     }
 
+    public enum characterType
+    {
+        Clown,
+        Dummy,
+        Imp,
+        Werewolf,
+    }
+
     public controlType[] playerControls = new controlType[4];
     public int[] wins = {0,0,0,0};
     public Color[] playerColors = new Color[4];
     public Sprite[] playerSprites = new Sprite[4];
+    public characterType[]  characters= new characterType[4];
     
     void Awake()    
     {

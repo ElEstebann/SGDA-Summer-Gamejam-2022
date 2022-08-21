@@ -47,6 +47,9 @@ public class Player : MonoBehaviour
     private float currentDeathProtection = 0f;
 
 
+    public MultiplayerManager.characterType characterType= MultiplayerManager.characterType.Clown;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -193,6 +196,7 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("I DIED");
             GM.PlayerKilled(ball.owner,playerIndex);
+            PlayHurtsound();
             frozen = false;
             animator.SetBool("Alive",false);
             alive = false;
@@ -271,6 +275,7 @@ public class Player : MonoBehaviour
     public void Knockback()
     {
         animator.SetTrigger("Stun");
+        PlayHurtsound();
         if(hasBall)
         {
             DropBall();
@@ -355,6 +360,32 @@ public class Player : MonoBehaviour
         animator.SetBool("Alive",true);
 
   
+    }
+
+    public void PlayHurtsound()
+    {
+        AudioManager.instance.Play("Hit");
+        switch(characterType)
+        {
+            case MultiplayerManager.characterType.Clown:
+                AudioManager.instance.Play("ClownHit");
+                break;
+            
+            case MultiplayerManager.characterType.Imp:
+                AudioManager.instance.Play("ImpHit");
+                break;
+            
+            case MultiplayerManager.characterType.Dummy:
+                AudioManager.instance.Play("DummyHit");
+                break;
+            
+            case MultiplayerManager.characterType.Werewolf:
+                AudioManager.instance.Play("WerewolfHit");
+                break;
+            
+            default:
+                break;
+        }
     }
 
 

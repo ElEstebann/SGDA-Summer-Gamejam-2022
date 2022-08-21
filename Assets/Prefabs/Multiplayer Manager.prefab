@@ -54,6 +54,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.93701124, a: 1}
   playerSprites:
   - {fileID: 21300000, guid: 39faa7587deeec649819fe4f8fe998a8, type: 3}
-  - {fileID: 21300000, guid: c1ea6c635a9dbaf468739ec591502134, type: 3}
-  - {fileID: 21300000, guid: 4600b82b1bab310498eeb9d8e12260c7, type: 3}
-  - {fileID: 21300000, guid: d214ad4f143ccf9499ede39bbe15a1a7, type: 3}
+  - {fileID: 21300000, guid: 1815e4c2d1de3534cbd706ef62dd9368, type: 3}
+  - {fileID: 21300000, guid: 62d1b121108e49445beae1995b4e9e6d, type: 3}
+  - {fileID: 21300000, guid: f8b4c5da15c0eee438bd9de8e35a4cfe, type: 3}
+  characters: 00000000010000000200000003000000

@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private Vector3 originalPosition;
     private SpriteRenderer backing;
     private SpriteRenderer arrow;
-    private SpriteRenderer aliveSprite;
+    public SpriteRenderer aliveSprite;
     private SpriteRenderer deadSprite;
     public bool stunned = false;
     [SerializeField]

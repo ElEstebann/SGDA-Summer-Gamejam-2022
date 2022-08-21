@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
             PM.controlType = MultiplayerManager.instance.playerControls[i];
             PM.hue = MultiplayerManager.instance.playerColors[i];
             pauseMenu = transform.Find("Canvas").gameObject;
+            SpriteRenderer SR = PM.gameObject.transform.Find("AliveSprite").GetComponent<SpriteRenderer>();
+            SR.sprite = MultiplayerManager.instance.playerSprites[i];
             HidePauseMenu();
             
         }

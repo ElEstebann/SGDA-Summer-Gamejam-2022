@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Player player;
+    public Player player;
     [SerializeField]
     private Possessable possessable; 
     private Vector2 direction = Vector2.zero;

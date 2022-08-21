@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 8534772748469092024}
   - component: {fileID: 8534772748469092023}
   m_Layer: 0
-  m_Name: Box
+  m_Name: Possessable_Base
   m_TagString: Possessable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

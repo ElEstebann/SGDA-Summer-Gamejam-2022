@@ -4,11 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerSelectSystem : MonoBehaviour {
-    private enum ControlSelected {
-        CPU,
-        Keyboard,
-        Gamepad
-    }
+    
 
     private MultiplayerManager multiplayerManager;
 
@@ -27,6 +23,7 @@ public class PlayerSelectSystem : MonoBehaviour {
     public int player3CurrentSpriteDisplayed;
     public int player4CurrentSpriteDisplayed;
 
+    /*
     private void SelectControlType(int player, ControlSelected control) {
         if (player == 0) {
             if (control == ControlSelected.CPU) {
@@ -128,6 +125,7 @@ public class PlayerSelectSystem : MonoBehaviour {
             player4CharacterDisplay.sprite = player4Sprites[player4CurrentSpriteDisplayed];
         }
     }
+    */
 
     private void Start() {
         multiplayerManager = FindObjectOfType<MultiplayerManager>();

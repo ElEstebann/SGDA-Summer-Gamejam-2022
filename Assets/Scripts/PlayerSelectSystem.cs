@@ -8,136 +8,82 @@ public class PlayerSelectSystem : MonoBehaviour {
 
     private MultiplayerManager multiplayerManager;
 
-    public Sprite[] player1Sprites = new Sprite[4];
-    public Sprite[] player2Sprites = new Sprite[4];
-    public Sprite[] player3Sprites = new Sprite[4];
-    public Sprite[] player4Sprites = new Sprite[4];
+    public PlayerCharacterAndOptions[] playerCharacterAndOptions = new PlayerCharacterAndOptions[4];
 
-    public Image player1CharacterDisplay;
-    public Image player2CharacterDisplay;
-    public Image player3CharacterDisplay;
-    public Image player4CharacterDisplay;
 
-    public int player1CurrentSpriteDisplayed;
-    public int player2CurrentSpriteDisplayed;
-    public int player3CurrentSpriteDisplayed;
-    public int player4CurrentSpriteDisplayed;
+    private void SelectControlType(int player, PlayerCharacterAndOptions.ControlSelected controlSelected, int controlNum) {
+        MultiplayerManager.controlType controlType = MultiplayerManager.controlType.Keyboard1;
 
-    /*
-    private void SelectControlType(int player, ControlSelected control) {
-        if (player == 0) {
-            if (control == ControlSelected.CPU) {
-                multiplayerManager.playerControls[0] = MultiplayerManager.controlType.CPU;
-            } else if (control == ControlSelected.Keyboard) {
-                multiplayerManager.playerControls[0] = MultiplayerManager.controlType.Keyboard1;
-            } else if (control == ControlSelected.Gamepad) {
-                multiplayerManager.playerControls[0] = MultiplayerManager.controlType.Gamepad1;
+        if (controlSelected == PlayerCharacterAndOptions.ControlSelected.Gamepad) {
+            if (controlNum == 1) {
+                controlType = MultiplayerManager.controlType.Gamepad1;
+            } else if (controlNum == 2) {
+                controlType = MultiplayerManager.controlType.Gamepad2;
+            } else if (controlNum == 3) {
+                controlType = MultiplayerManager.controlType.Gamepad3;
+            } else if (controlNum == 4) {
+                controlType = MultiplayerManager.controlType.Gamepad4;
             } else {
-                Debug.LogError("Control type does not exist / is not implemented");
+                Debug.LogError("Control number does not exist / is not implemented");
             }
-        } else if (player == 1) {
-            if (control == ControlSelected.CPU) {
-                multiplayerManager.playerControls[1] = MultiplayerManager.controlType.CPU;
-            } else if (control == ControlSelected.Keyboard) {
-                multiplayerManager.playerControls[1] = MultiplayerManager.controlType.Keyboard2;
-            } else if (control == ControlSelected.Gamepad) {
-                multiplayerManager.playerControls[1] = MultiplayerManager.controlType.Gamepad2;
+        } else if (controlSelected == PlayerCharacterAndOptions.ControlSelected.Keyboard) {
+            if (controlNum == 1) {
+                controlType = MultiplayerManager.controlType.Keyboard1;
+            } else if (controlNum == 2) {
+                controlType = MultiplayerManager.controlType.Keyboard2;
+            } else if (controlNum == 3) {
+                controlType = MultiplayerManager.controlType.Keyboard3;
+            } else if (controlNum == 4) {
+                controlType = MultiplayerManager.controlType.Keyboard4;
             } else {
-                Debug.LogError("Control type does not exist / is not implemented");
+                Debug.LogError("Control number does not exist / is not implemented");
             }
-        } else if (player == 2) {
-            if (control == ControlSelected.CPU) {
-                multiplayerManager.playerControls[2] = MultiplayerManager.controlType.CPU;
-            } else if (control == ControlSelected.Keyboard) {
-                multiplayerManager.playerControls[2] = MultiplayerManager.controlType.Keyboard3;
-            } else if (control == ControlSelected.Gamepad) {
-                multiplayerManager.playerControls[2] = MultiplayerManager.controlType.Gamepad3;
-            } else {
-                Debug.LogError("Control type does not exist / is not implemented");
-            }
-        } else if (player == 3) {
-            if (control == ControlSelected.CPU) {
-                multiplayerManager.playerControls[3] = MultiplayerManager.controlType.CPU;
-            } else if (control == ControlSelected.Keyboard) {
-                multiplayerManager.playerControls[3] = MultiplayerManager.controlType.Keyboard4;
-            } else if (control == ControlSelected.Gamepad) {
-                multiplayerManager.playerControls[3] = MultiplayerManager.controlType.Gamepad4;
-            } else {
-                Debug.LogError("Control type does not exist / is not implemented");
-            }
+        } else if (controlSelected == PlayerCharacterAndOptions.ControlSelected.CPU) {
+            controlType = MultiplayerManager.controlType.CPU;
         } else {
-            Debug.LogError("Player number does not exist");
+            Debug.LogError("Control type does not exist / is not implemented");
         }
+
+        multiplayerManager.playerControls[player] = controlType;
     }
 
-    public void ScrollCharacterDisplayLeft(int player) {
-        if (player == 0) {
-            player1CurrentSpriteDisplayed -= 1;
-            if (player1CurrentSpriteDisplayed < 0) {
-                player1CurrentSpriteDisplayed = 3;
-            }
-            player1CharacterDisplay.sprite = player1Sprites[player1CurrentSpriteDisplayed];
-        } else if (player == 1) {
-            player2CurrentSpriteDisplayed -= 1;
-            if (player2CurrentSpriteDisplayed < 0) {
-                player2CurrentSpriteDisplayed = 3;
-            }
-            player2CharacterDisplay.sprite = player2Sprites[player2CurrentSpriteDisplayed];
-        } else if (player == 2) {
-            player3CurrentSpriteDisplayed -= 1;
-            if (player3CurrentSpriteDisplayed < 0) {
-                player3CurrentSpriteDisplayed = 3;
-            }
-            player3CharacterDisplay.sprite = player3Sprites[player3CurrentSpriteDisplayed];
-        } else if (player == 3) {
-            player4CurrentSpriteDisplayed -= 1;
-            if (player4CurrentSpriteDisplayed < 0) {
-                player4CurrentSpriteDisplayed = 3;
-            }
-            player4CharacterDisplay.sprite = player4Sprites[player4CurrentSpriteDisplayed];
-        }
+    public void ChangePlayerCharacterAndOptions(int player, PlayerCharacterAndOptions.ControlSelected controlSelected, int controlNum) {
+        playerCharacterAndOptions[player].SelectControl(controlSelected);
+        playerCharacterAndOptions[player].SelectControlNum(controlNum);
     }
-
-    public void ScrollCharacterDisplayRight(int player) {
-        if (player == 0) {
-            player1CurrentSpriteDisplayed += 1;
-            if (player1CurrentSpriteDisplayed > 3) {
-                player1CurrentSpriteDisplayed = 0;
-            }
-            player1CharacterDisplay.sprite = player1Sprites[player1CurrentSpriteDisplayed];
-        } else if (player == 1) {
-            player2CurrentSpriteDisplayed += 1;
-            if (player2CurrentSpriteDisplayed > 3) {
-                player2CurrentSpriteDisplayed = 0;
-            }
-            player2CharacterDisplay.sprite = player2Sprites[player2CurrentSpriteDisplayed];
-        } else if (player == 2) {
-            player3CurrentSpriteDisplayed += 1;
-            if (player3CurrentSpriteDisplayed > 3) {
-                player3CurrentSpriteDisplayed = 0;
-            }
-            player3CharacterDisplay.sprite = player3Sprites[player3CurrentSpriteDisplayed];
-        } else if (player == 3) {
-            player4CurrentSpriteDisplayed += 1;
-            if (player4CurrentSpriteDisplayed > 3) {
-                player4CurrentSpriteDisplayed = 0;
-            }
-            player4CharacterDisplay.sprite = player4Sprites[player4CurrentSpriteDisplayed];
-        }
-    }
-    */
 
     private void Start() {
         multiplayerManager = FindObjectOfType<MultiplayerManager>();
 
-        player1CurrentSpriteDisplayed = 0;
-        player2CurrentSpriteDisplayed = 0;
-        player3CurrentSpriteDisplayed = 0;
-        player4CurrentSpriteDisplayed = 0;
-
         // Set the options currently selected to whatever is in the multiplayer manager!
+        for (int i = 0; i < 4; i++) {
+            if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard1) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Keyboard, 1);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard2) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Keyboard, 2);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard3) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Keyboard, 3);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard4) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Keyboard, 4);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Gamepad1) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Gamepad, 1);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Gamepad2) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Gamepad, 2);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Gamepad3) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Gamepad, 3);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Gamepad4) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Gamepad, 4);
+            } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.CPU) {
+                ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Gamepad, 1);
+            } else {
+                Debug.LogError("Control type does not exist / is not implemented");
+            }
+        }
+    }
 
-
-
+    private void Update() {
+        for (int i = 0; i < 4; i++) {
+            SelectControlType(i, playerCharacterAndOptions[i].controlSelected, playerCharacterAndOptions[i].controlNumSelected);
+        }
     }
 }

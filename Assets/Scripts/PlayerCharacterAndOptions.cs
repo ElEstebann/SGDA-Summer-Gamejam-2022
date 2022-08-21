@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerCharacterAndOptions : MonoBehaviour
 {
@@ -9,7 +10,11 @@ public class PlayerCharacterAndOptions : MonoBehaviour
     public Sprite[] playerSprites = new Sprite[4];
     public Image playerCharacterDisplay;
     public int playerCurrentSpriteDisplayed;
+
+    public TextMeshProUGUI controlNumText;
+
     public ControlSelected controlSelected;
+    public int controlNumSelected = 1;
 
     public GameObject gamepadSelectFrame;
     public GameObject keyboardSelectFrame;
@@ -37,6 +42,36 @@ public class PlayerCharacterAndOptions : MonoBehaviour
         playerCharacterDisplay.sprite = playerSprites[playerCurrentSpriteDisplayed];
     }
 
+    public void ScrollControlNumUp() {
+        controlNumSelected++;
+        if (controlNumSelected > 4) {
+            controlNumSelected = 1;
+        }
+        controlNumText.text = controlNumSelected + "";
+    }
+    public void ScrollControlNumDown() {
+        controlNumSelected--;
+        if (controlNumSelected < 1) {
+            controlNumSelected = 4;
+        }
+        controlNumText.text = controlNumSelected + "";
+    }
+
+    public void SelectControl(ControlSelected control) {
+        if (control == ControlSelected.Gamepad) {
+            SelectGamepad();
+        } else if (control == ControlSelected.Keyboard) {
+            SelectKeyboard();
+        } else if (control == ControlSelected.CPU) {
+            SelectCPU();
+        } else {
+            Debug.LogError("Control selection unimplemented");
+        }
+    }
+    public void SelectControlNum(int controlNum) {
+        controlNumSelected = controlNum;
+        controlNumText.text = controlNumSelected + "";
+    }
     public void SelectGamepad() {
         controlSelected = ControlSelected.Gamepad;
         gamepadSelectFrame.SetActive(true);

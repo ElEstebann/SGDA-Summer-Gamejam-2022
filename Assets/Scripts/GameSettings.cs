@@ -18,10 +18,6 @@ public class GameSettings : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        Debug.Log(masterVolume + "");
-        Debug.Log(musicVolume + "");
-        Debug.Log(soundVolume + "");
     }
 
     public float GetMusicVolume() {

@@ -4,34 +4,20 @@ using UnityEngine;
 
 public class MenuUISoundPlayer : MonoBehaviour
 {
-    GameSettings gameSettings;
-
-    public AudioSource audioSource;
-
-    public AudioClip[] audioClips = new AudioClip[3];
+    MenuUISoundPlayerSingleton menuUISoundPlayerSingleton;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        gameSettings = GameSettings.instance;
+    void Start() {
+        menuUISoundPlayerSingleton = MenuUISoundPlayerSingleton.instance;
     }
 
-    private void PlaySound() {
-        audioSource.volume = gameSettings.GetSoundVolume();
-        audioSource.Play();
-    }
     public void PlayBackoutNoise() {
-        audioSource.clip = audioClips[0];
-        PlaySound();
+        menuUISoundPlayerSingleton.PlayBackoutNoise();
     }
     public void PlayMoveAroundNoise() {
-        audioSource.clip = audioClips[1];
-        PlaySound();
+        menuUISoundPlayerSingleton.PlayMoveAroundNoise();
     }
     public void PlaySelectNoise() {
-        audioSource.clip = audioClips[2];
-        PlaySound();
+        menuUISoundPlayerSingleton.PlaySelectNoise();
     }
-
-
 }

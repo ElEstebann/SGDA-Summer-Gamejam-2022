@@ -10,6 +10,8 @@ public class PlayerSelectSystem : MonoBehaviour {
 
     public PlayerCharacterAndOptions[] playerCharacterAndOptions = new PlayerCharacterAndOptions[4];
 
+    public MenuUIFlavorTextPanels[] flavorTextPanels = new MenuUIFlavorTextPanels[4];
+
 
     private void SelectControlType(int player, PlayerCharacterAndOptions.ControlSelected controlSelected, int controlNum) {
         MultiplayerManager.controlType controlType = MultiplayerManager.controlType.Keyboard1;
@@ -48,6 +50,7 @@ public class PlayerSelectSystem : MonoBehaviour {
     }
     private void SelectSprite(int player, Sprite sprite) {
         multiplayerManager.playerSprites[player] = sprite;
+        flavorTextPanels[player].SelectPanel(playerCharacterAndOptions[player].playerCurrentSpriteDisplayed);
     }
 
     public void ChangePlayerCharacterAndOptions(int player, PlayerCharacterAndOptions.ControlSelected controlSelected, int controlNum) {

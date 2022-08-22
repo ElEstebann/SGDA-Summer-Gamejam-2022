@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
     void OnDestroy()
     {
         GameManager.OnBallTimeout -= Timeout;
+        GameManager.OnReviveAll -=Revive;
     }
 
     // Update is called once per frame

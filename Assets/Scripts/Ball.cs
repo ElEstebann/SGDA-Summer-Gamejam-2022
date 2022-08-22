@@ -125,6 +125,7 @@ public class Ball : MonoBehaviour
                         {
                             PickupBall();
                             transform.SetParent(player.ballPlacement);
+                            //transform.rotation = Quaternion.Euler(0f,0f,0f);
                             transform.localPosition = Vector3.zero;
                             
                             player.GetBall();
@@ -207,7 +208,7 @@ public class Ball : MonoBehaviour
         
         rb.angularVelocity = 0;
         rb.velocity = new Vector2(0f,0f);
-        rb.rotation = originalRotation;
+        
         transform.position = originalPosition;
     }
 }

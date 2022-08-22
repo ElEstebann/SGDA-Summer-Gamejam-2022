@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static event Game OnUnpause;
     public static event Game OnGameOver;
     public static event Game OnGameRestart;
+    public static event Game OnBallTimeout;
     public Player roundWinner;
     public int numDead = 0;
     public int killerPlayer = 0;
@@ -202,6 +203,14 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void BallTimeout()
+    {
+        if(OnBallTimeout != null)
+            OnBallTimeout();
+        //ReviveAll();
+        Debug.Log("Ball Timed Out");
     }
 
 

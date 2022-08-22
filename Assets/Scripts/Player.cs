@@ -48,6 +48,9 @@ public class Player : MonoBehaviour
 
 
     public MultiplayerManager.characterType characterType= MultiplayerManager.characterType.Clown;
+    private Animator timer;
+    [SerializeField]
+    static int pickupTime = 3;
 
 
     // Start is called before the first frame update
@@ -77,6 +80,14 @@ public class Player : MonoBehaviour
         arrow.color = new Color(hue.r,hue.g,hue.b,0f);
         backing.color = new Color(hue.r,hue.g,hue.b,0.5f);
 
+        GameManager.OnBallTimeout += Timeout;
+        timer = rotationJoint.Find("Timer").transform.GetComponent<Animator>();
+
+    }
+
+    void OnDestroy()
+    {
+        GameManager.OnBallTimeout -= Timeout;
     }
 
     // Update is called once per frame
@@ -148,6 +159,7 @@ public class Player : MonoBehaviour
             //Debug.Log("Throwing: " + direction + " " + throwForce);
             animator.SetBool("HasBall",hasBall);
             arrow.color = new Color(hue.r,hue.g,hue.b,0f);
+            timer.SetInteger("Time",-1);
         }
         else
         {
@@ -158,6 +170,7 @@ public class Player : MonoBehaviour
     {
         if(hasBall)
         {
+            timer.SetInteger("Time",-1);
             hasBall = false;
             BroadcastMessage("ThrowTo",Vector2.zero);
             arrow.color = new Color(hue.r,hue.g,hue.b,0f);
@@ -188,6 +201,7 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         animator.SetBool("HasBall",hasBall);
         arrow.color = new Color(hue.r,hue.g,hue.b,1f);
+        timer.SetInteger("Time",pickupTime);
     }
 
     public void Die(Ball ball)
@@ -386,6 +400,17 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void Timeout()
+    {
+        if(hasBall)
+        {
+            Debug.Log("Player" + playerIndex + " timed out!");
+            ThrowBall();
+            Knockback();
+        }
+
     }
 
 

@@ -35,6 +35,7 @@ public class MultiplayerManager : MonoBehaviour
     public Sprite[] playerSprites = new Sprite[4];
     public characterType[]  characters= new characterType[4];
     
+    
     void Awake()    
     {
         DontDestroyOnLoad(gameObject);

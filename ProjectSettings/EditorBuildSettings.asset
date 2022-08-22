@@ -20,4 +20,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu.unity
+    guid: c4374d384a98dc942a645b95eb09c93b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu Walkthrough 1.unity
+    guid: 531850c285a931c479128797d6f6f6c2
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu Walkthrough 2.unity
+    guid: 2bf27eb5d37d1a043ac14575a94dde35
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu Walkthrough 3.unity
+    guid: 3f71c77c89a568e448cf52af8c32975b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu Walkthrough 4.unity
+    guid: 41f29d4519fd6524e959aa2e23c3c533
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Menu Walkthrough 5.unity
+    guid: a7edb6ad3f797e044a85f3c7bc122748
   m_configObjects: {}

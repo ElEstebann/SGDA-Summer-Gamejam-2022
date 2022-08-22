@@ -13,6 +13,8 @@ public class ResultScreen : MonoBehaviour
     [SerializeField]
     private Color winColor = Color.white;
     private GameManager GM;
+    [SerializeField]
+    private Image[] playerSprites;
     void Start()
     {
         for(int i = 0;i<4;i++)
@@ -21,6 +23,7 @@ public class ResultScreen : MonoBehaviour
             playerNames[i].text = "<color=#" + ColorUtility.ToHtmlStringRGB(hue) + ">Player " + (i+1) + "</color>";
             texts[i].text = "<color=#" + ColorUtility.ToHtmlStringRGB(hue) + ">0</color>";
             backdrops[i].color = new Color(1,1,1,0);
+            playerSprites[i].sprite = MultiplayerManager.instance.playerSprites[i];
         }
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         GameManager.OnGameOver += UpdateWins;
@@ -40,7 +43,7 @@ public class ResultScreen : MonoBehaviour
 
     void UpdateWins()
     {
-        Debug.Log("UPDATING");
+        //Debug.Log("UPDATING");
         for(int i = 0;i<4;i++)
         {
             Color hue = MultiplayerManager.instance.playerColors[i];

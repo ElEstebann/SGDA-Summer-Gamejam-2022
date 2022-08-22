@@ -7,9 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.82
+      objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092022, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Name
-      value: Box
+      value: Wooden Box
       objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092023, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Enabled
@@ -22,6 +34,10 @@ PrefabInstance:
     - target: {fileID: 8534772748469092023, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772748469092024, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092025, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Sprite
@@ -87,6 +103,108 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8534772748469092022, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
   m_PrefabInstance: {fileID: 7634799006361900220}
   m_PrefabAsset: {fileID: 0}
+--- !u!66 &1534069907282836244
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271463095884573194}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1394943495}
+    m_ColliderPaths:
+    - - X: 9750000
+        Y: -3250000
+      - X: 9450000
+        Y: -3450000
+      - X: 9550000
+        Y: 5349999
+      - X: 9850000
+        Y: 7849999
+      - X: 10250000
+        Y: 8450000
+      - X: 10250000
+        Y: 8650000
+      - X: 8850000
+        Y: 9750000
+      - X: 7849999
+        Y: 9350000
+      - X: -1450000
+        Y: 9850000
+      - X: -2350000
+        Y: 9850000
+      - X: -5650000
+        Y: 8850000
+      - X: -9150000
+        Y: 8050000
+      - X: -9850000
+        Y: 7550000
+      - X: -9850000
+        Y: 5750000
+      - X: -9650000
+        Y: 5450000
+      - X: -9650000
+        Y: -4850000
+      - X: -9750000
+        Y: -4850000
+      - X: -9850000
+        Y: -5550000
+      - X: -9850000
+        Y: -6850000
+      - X: -9250000
+        Y: -7349999
+      - X: 1450000
+        Y: -7849999
+      - X: 3949999
+        Y: -8050000
+      - X: 5949999
+        Y: -8050000
+      - X: 7750000
+        Y: -6750000
+      - X: 10250000
+        Y: -5150000
+      - X: 10250000
+        Y: -4150000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 0.5949916, y: -0.805}
+      - {x: 0.7749996, y: -0.6750002}
+      - {x: 1.025, y: -0.5149854}
+      - {x: 1.0249968, y: -0.4149943}
+      - {x: 0.9749731, y: -0.3250179}
+      - {x: 0.9450007, y: -0.34493542}
+      - {x: 0.95500034, y: 0.5350025}
+      - {x: 0.9850034, y: 0.7850051}
+      - {x: 1.025, y: 0.8450077}
+      - {x: 1.02499, y: 0.86500794}
+      - {x: 0.8849857, y: 0.9749943}
+      - {x: 0.784994, y: 0.9350003}
+      - {x: -0.1449995, y: 0.985}
+      - {x: -0.2350036, y: 0.9849989}
+      - {x: -0.5650029, y: 0.8849992}
+      - {x: -0.9150042, y: 0.804997}
+      - {x: -0.985, y: 0.7549863}
+      - {x: -0.9849957, y: 0.5749936}
+      - {x: -0.96500003, y: 0.5449921}
+      - {x: -0.9650294, y: -0.485}
+      - {x: -0.9750036, y: -0.4850245}
+      - {x: -0.985, y: -0.5550021}
+      - {x: -0.9849906, y: -0.685008}
+      - {x: -0.9249913, y: -0.73500043}
+      - {x: 0.1449992, y: -0.7849998}
+      - {x: 0.3950014, y: -0.805}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
 --- !u!60 &1394943495
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -99,7 +217,7 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}

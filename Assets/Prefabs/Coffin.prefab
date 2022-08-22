@@ -7,9 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772747034547386, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.18
+      objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092022, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Name
-      value: Possessable_Base
+      value: Coffin
       objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092023, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Enabled
@@ -22,6 +34,10 @@ PrefabInstance:
     - target: {fileID: 8534772748469092023, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 3.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772748469092024, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092025, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Sprite
@@ -87,6 +103,152 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8534772748469092022, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
   m_PrefabInstance: {fileID: 2398057980620056488}
   m_PrefabAsset: {fileID: 0}
+--- !u!66 &-2919768466828643839
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284218710908016926}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1568391303}
+    m_ColliderPaths:
+    - - X: -2900000
+        Y: -9300000
+      - X: -1900000
+        Y: -9200000
+      - X: 4500000
+        Y: -8500000
+      - X: 6300000
+        Y: -8300000
+      - X: 8200000
+        Y: -8100000
+      - X: 9899999
+        Y: -7999999
+      - X: 10500000
+        Y: -6900000
+      - X: 11300000
+        Y: -5700000
+      - X: 13399999
+        Y: -2900000
+      - X: 14100000
+        Y: -1799999
+      - X: 14100000
+        Y: -1499999
+      - X: 13700000
+        Y: -700000
+      - X: 13700000
+        Y: 400000
+      - X: 14200000
+        Y: 999999
+      - X: 14200000
+        Y: 1400000
+      - X: 13900000
+        Y: 2100000
+      - X: 11899999
+        Y: 6100000
+      - X: 11899999
+        Y: 6300000
+      - X: 11000000
+        Y: 8200000
+      - X: 10400000
+        Y: 8800000
+      - X: 8300000
+        Y: 9300000
+      - X: 1799999
+        Y: 10500000
+      - X: 1700000
+        Y: 10500000
+      - X: 899999
+        Y: 10100000
+      - X: 700000
+        Y: 9899999
+      - X: -2400000
+        Y: 8400000
+      - X: -5934713
+        Y: 6493867
+      - X: -10100000
+        Y: 4500000
+      - X: -10300000
+        Y: 4300000
+      - X: -15400000
+        Y: 1799999
+      - X: -15799999
+        Y: 1200000
+      - X: -15799999
+        Y: 700000
+      - X: -14900000
+        Y: -1499999
+      - X: -14699999
+        Y: -1900000
+      - X: -13299999
+        Y: -5299999
+      - X: -12700000
+        Y: -6800000
+      - X: -11700000
+        Y: -9700000
+      - X: -11500000
+        Y: -10200000
+      - X: -10100000
+        Y: -10200000
+      - X: -9300000
+        Y: -10000000
+      - X: -6500000
+        Y: -9700000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: -1.0100029, y: -1.02}
+      - {x: -0.92999864, y: -0.9999997}
+      - {x: -0.65000004, y: -0.97}
+      - {x: -0.2900002, y: -0.9300001}
+      - {x: -0.1899976, y: -0.91999984}
+      - {x: 0.6299988, y: -0.8300002}
+      - {x: 0.8200005, y: -0.8099999}
+      - {x: 0.9900069, y: -0.799987}
+      - {x: 1.0500013, y: -0.6899981}
+      - {x: 1.1299998, y: -0.5700003}
+      - {x: 1.3400006, y: -0.2899991}
+      - {x: 1.41, y: -0.1799923}
+      - {x: 1.4099973, y: -0.1499944}
+      - {x: 1.37, y: -0.0699941}
+      - {x: 1.370006, y: 0.0400071}
+      - {x: 1.42, y: 0.1000092}
+      - {x: 1.419998, y: 0.1400048}
+      - {x: 1.3900003, y: 0.2099992}
+      - {x: 1.1899999, y: 0.6100059}
+      - {x: 1.1899976, y: 0.6300052}
+      - {x: 1.0999968, y: 0.8200032}
+      - {x: 1.0399932, y: 0.8800015}
+      - {x: 0.82999784, y: 0.9300005}
+      - {x: 0.1799978, y: 1.0500001}
+      - {x: 0.1699945, y: 1.0499973}
+      - {x: 0.0899971, y: 1.0099972}
+      - {x: 0.0699957, y: 0.9899978}
+      - {x: -0.2399996, y: 0.8400002}
+      - {x: -0.5934715, y: 0.6493865}
+      - {x: -1.0100033, y: 0.44999692}
+      - {x: -1.0300038, y: 0.4299981}
+      - {x: -1.5400037, y: 0.1799943}
+      - {x: -1.5799999, y: 0.119992204}
+      - {x: -1.579998, y: 0.0699957}
+      - {x: -1.4899992, y: -0.1500016}
+      - {x: -1.469999, y: -0.1900022}
+      - {x: -1.3299991, y: -0.5300016}
+      - {x: -1.2700005, y: -0.6799993}
+      - {x: -1.1700004, y: -0.9699987}
+      - {x: -1.1499815, y: -1.02}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
 --- !u!60 &1568391303
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -99,7 +261,7 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,7 +300,7 @@ PolygonCollider2D:
       - {x: 0.089999996, y: 1.01}
       - {x: 0.07, y: 0.98999995}
       - {x: -0.24, y: 0.84}
-      - {x: -0.26, y: 0.82}
+      - {x: -0.5934713, y: 0.6493867}
       - {x: -1.01, y: 0.45}
       - {x: -1.03, y: 0.42999998}
       - {x: -1.54, y: 0.17999999}

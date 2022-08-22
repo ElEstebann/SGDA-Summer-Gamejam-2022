@@ -46,6 +46,9 @@ public class PlayerSelectSystem : MonoBehaviour {
 
         multiplayerManager.playerControls[player] = controlType;
     }
+    private void SelectSprite(int player, Sprite sprite) {
+        multiplayerManager.playerSprites[player] = sprite;
+    }
 
     public void ChangePlayerCharacterAndOptions(int player, PlayerCharacterAndOptions.ControlSelected controlSelected, int controlNum) {
         playerCharacterAndOptions[player].SelectControl(controlSelected);
@@ -57,6 +60,8 @@ public class PlayerSelectSystem : MonoBehaviour {
 
         // Set the options currently selected to whatever is in the multiplayer manager!
         for (int i = 0; i < 4; i++) {
+            SelectSprite(i, playerCharacterAndOptions[i].playerSprites[0]);
+
             if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard1) {
                 ChangePlayerCharacterAndOptions(i, PlayerCharacterAndOptions.ControlSelected.Keyboard, 1);
             } else if (multiplayerManager.playerControls[i] == MultiplayerManager.controlType.Keyboard2) {
@@ -84,6 +89,7 @@ public class PlayerSelectSystem : MonoBehaviour {
     private void Update() {
         for (int i = 0; i < 4; i++) {
             SelectControlType(i, playerCharacterAndOptions[i].controlSelected, playerCharacterAndOptions[i].controlNumSelected);
+            SelectSprite(i, playerCharacterAndOptions[i].playerSprites[playerCharacterAndOptions[i].playerCurrentSpriteDisplayed]);
         }
     }
 }

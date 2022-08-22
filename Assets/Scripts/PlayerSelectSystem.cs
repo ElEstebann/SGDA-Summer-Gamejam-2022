@@ -90,6 +90,7 @@ public class PlayerSelectSystem : MonoBehaviour {
         for (int i = 0; i < 4; i++) {
             SelectControlType(i, playerCharacterAndOptions[i].controlSelected, playerCharacterAndOptions[i].controlNumSelected);
             SelectSprite(i, playerCharacterAndOptions[i].playerSprites[playerCharacterAndOptions[i].playerCurrentSpriteDisplayed]);
+            MultiplayerManager.instance.characters[i] = (MultiplayerManager.characterType)playerCharacterAndOptions[i].playerCurrentSpriteDisplayed;
         }
     }
 }

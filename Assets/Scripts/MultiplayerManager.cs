@@ -24,9 +24,9 @@ public class MultiplayerManager : MonoBehaviour
     public enum characterType
     {
         Clown,
-        Dummy,
-        Imp,
         Werewolf,
+        Imp,
+        Dummy,
     }
 
     public controlType[] playerControls = new controlType[4];

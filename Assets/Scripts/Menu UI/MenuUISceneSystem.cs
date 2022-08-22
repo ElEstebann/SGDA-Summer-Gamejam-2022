@@ -9,6 +9,10 @@ public class MenuUISceneSystem : MonoBehaviour
         SceneManager.LoadScene(i);
     }
 
+    public void LoadScene(string s) {
+        SceneManager.LoadScene(s);
+    }
+
     public void QuitGame() {
         Application.Quit();
     }

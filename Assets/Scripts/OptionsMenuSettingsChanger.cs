@@ -17,10 +17,6 @@ public class OptionsMenuSettingsChanger : MonoBehaviour
     {
         gameSettings = GameSettings.instance;
 
-        Debug.Log(gameSettings.masterVolume + "");
-        Debug.Log(gameSettings.musicVolume + "");
-        Debug.Log(gameSettings.soundVolume + "");
-
         float startingMasterVolume = gameSettings.masterVolume;
         float startingMusicVolume = gameSettings.musicVolume;
         float startingSoundVolume = gameSettings.soundVolume;
@@ -28,10 +24,6 @@ public class OptionsMenuSettingsChanger : MonoBehaviour
         MasterVolumeSlider.value = startingMasterVolume;
         MusicVolumeSlider.value = startingMusicVolume;
         SoundVolumeSlider.value = startingSoundVolume;
-
-        Debug.Log(gameSettings.masterVolume + "");
-        Debug.Log(gameSettings.musicVolume + "");
-        Debug.Log(gameSettings.soundVolume + "");
     }
 
     public void UpdateGameSettings() {

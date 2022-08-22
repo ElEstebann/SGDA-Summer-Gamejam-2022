@@ -55,14 +55,14 @@ MonoBehaviour:
     bgm: 1
     source: {fileID: 0}
   - name: Victory
-    clip: {fileID: 8300000, guid: 100c29ec6a5a29645ab510bbc6e93852, type: 3}
+    clip: {fileID: 8300000, guid: b3da48b5c716a74449444deec2e36c67, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 1
     source: {fileID: 0}
   - name: Results
-    clip: {fileID: 8300000, guid: 82af55a9d42b83c44b1f4ece6b2a3360, type: 3}
+    clip: {fileID: 8300000, guid: 55f12ce62243f2c40b3ae3475e268c05, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -76,133 +76,154 @@ MonoBehaviour:
     bgm: 0
     source: {fileID: 0}
   - name: ClownHit
-    clip: {fileID: 8300000, guid: 34b523819666ff0449db0e38603c17f2, type: 3}
+    clip: {fileID: 8300000, guid: a72278d88ed05524ebd6191de995f3e6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: ImpHit
-    clip: {fileID: 8300000, guid: 72ed4a212c81b994b8682cce8b99ceb8, type: 3}
+    clip: {fileID: 8300000, guid: a72278d88ed05524ebd6191de995f3e6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: DummyHit
-    clip: {fileID: 8300000, guid: c9f4d4fa0062dc0419b5250b4a24600a, type: 3}
+    clip: {fileID: 8300000, guid: a72278d88ed05524ebd6191de995f3e6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: WerewolfHit
-    clip: {fileID: 8300000, guid: ed6770763392c364ab10e8ccef2dd427, type: 3}
+    clip: {fileID: 8300000, guid: a72278d88ed05524ebd6191de995f3e6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Hit
-    clip: {fileID: 8300000, guid: 109af48471ebe4f40b9104cc74ed5653, type: 3}
+    clip: {fileID: 8300000, guid: a72278d88ed05524ebd6191de995f3e6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Ghost
-    clip: {fileID: 8300000, guid: 4335f6bb519e10e4b8be6b3a261cd3e6, type: 3}
+    clip: {fileID: 8300000, guid: 664e3adae6dc8854cb1016a8d2a58242, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Revive
-    clip: {fileID: 8300000, guid: 7ef1a008895a08b44961f375955de4ea, type: 3}
+    clip: {fileID: 8300000, guid: d0d99d0d552fa1b4da26c5ba3fede6bb, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Possess
-    clip: {fileID: 8300000, guid: 67ba74ee41a25aa4eb8e366cfd26c545, type: 3}
+    clip: {fileID: 8300000, guid: 5704a9f926230f44187dfd9f1096aac9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Unpossess
-    clip: {fileID: 8300000, guid: 837314d544adcc947a7bf3e62d47576b, type: 3}
+    clip: {fileID: 8300000, guid: 5de26d7f1d5e6c945809bf3669aba03a, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: BallHit
-    clip: {fileID: 8300000, guid: a8b77eee48fc2b5478bca80da98ffc1e, type: 3}
+    clip: {fileID: 8300000, guid: a6f4df6d80c0eb54bb7efea3702d9fe7, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: BallThrow
-    clip: {fileID: 8300000, guid: f4fe08de5ff23904fb8f0e998dfd43a3, type: 3}
+    clip: {fileID: 8300000, guid: 9c32c328fd5928d4fae751e328638fe0, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: BallPickUp
-    clip: {fileID: 8300000, guid: 6a09284e83011df4d8ab84d9d7086be1, type: 3}
+    clip: {fileID: 8300000, guid: 0cf8d344f4a78394386fe7a1b94eefba, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Dash
-    clip: {fileID: 8300000, guid: d4f24fbd48fda314abb1fb5673f51fc6, type: 3}
+    clip: {fileID: 8300000, guid: 5021402eaf59e7f43a9f04b536cd4696, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: TackleHit
-    clip: {fileID: 8300000, guid: b48a0af109932014b959c7bb0b3b48fc, type: 3}
+    clip: {fileID: 8300000, guid: 16279c8a75211594f929c02492d3b4b1, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: Walking
-    clip: {fileID: 8300000, guid: 28e21ade681fba14a831afc0bc6f872c, type: 3}
+    clip: {fileID: 8300000, guid: 1640b5351b9e48c4a871924ea4007982, type: 3}
     volume: 1
     pitch: 1
     loop: 1
     bgm: 0
     source: {fileID: 0}
   - name: UIBack
-    clip: {fileID: 8300000, guid: dc0d4adf72a8bc54ca021c621dfc0b63, type: 3}
+    clip: {fileID: 8300000, guid: 0f190567671c7114e992a7d438a45b2a, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: UIMove
-    clip: {fileID: 8300000, guid: 0d343189e1198004ea70a1d6a735672c, type: 3}
+    clip: {fileID: 8300000, guid: bfe3f356c815ca7479d3bf0513f754ff, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: UIMoveLoud
-    clip: {fileID: 8300000, guid: 945e416a8bc65c641bfa8e2f9dfd7958, type: 3}
+    clip: {fileID: 8300000, guid: bfe3f356c815ca7479d3bf0513f754ff, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     bgm: 0
     source: {fileID: 0}
   - name: UISelect
-    clip: {fileID: 8300000, guid: 945e416a8bc65c641bfa8e2f9dfd7958, type: 3}
+    clip: {fileID: 8300000, guid: 9cc84c0912ab5fc42837855563859a36, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 0
+    source: {fileID: 0}
+  - name: BallTick
+    clip: {fileID: 8300000, guid: 38885cb83a801e140859fdff06af914e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 0
+    source: {fileID: 0}
+  - name: BallTickWarning
+    clip: {fileID: 8300000, guid: 141865277ba5aaf408d959a22af123cd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    bgm: 0
+    source: {fileID: 0}
+  - name: Buzzer
+    clip: {fileID: 8300000, guid: 1983ae60c13d01e4590276b08fcdffe2, type: 3}
     volume: 1
     pitch: 1
     loop: 0

@@ -233,12 +233,33 @@ public class Player : MonoBehaviour
     {
         if(!alive)
         {
+            
             animator.SetBool("Alive",true);
             alive = true;
+
+            FindReviveLocation();
             gameObject.layer = LayerMask.NameToLayer("Default");
             currentDeathProtection = deathProtection;
             
         }
+    }
+
+    public void FindReviveLocation()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position,direction,Mathf.Infinity,LayerMask.GetMask("Default"));
+        float mod = 0f;
+        
+        while(hit && hit.distance < 0.6f && hit.collider.tag == "Possessable")
+        {
+            Debug.Log(hit.collider.tag);
+            mod += 0.1f;
+            hit = Physics2D.Raycast(transform.position + new Vector3(direction.x*mod,direction.y*mod,0f),direction,Mathf.Infinity,LayerMask.GetMask("Default"));
+            
+        }
+        Vector3 newPos = transform.position + new Vector3(direction.x*mod,direction.y*mod,0f);
+        Debug.DrawRay(transform.position,new Vector3(direction.x*mod,direction.y*mod,0f),hue);
+        transform.position = newPos;
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)

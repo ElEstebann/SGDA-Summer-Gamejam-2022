@@ -19,6 +19,22 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.82
       objectReference: {fileID: 0}
+    - target: {fileID: 8534772748424864898, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_Size.x
+      value: 1.7614479
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772748424864898, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5596179
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772748424864898, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0045871735
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534772748424864898, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.10550207
+      objectReference: {fileID: 0}
     - target: {fileID: 8534772748469092022, guid: 62e3ed7f9c2ea0044af8fe39e02b4ed8, type: 3}
       propertyPath: m_Name
       value: Wooden Box

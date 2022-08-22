@@ -244,6 +244,8 @@ public class PlayerMovement : MonoBehaviour
             canPossess = false;
             possessable.Unreserve();
             player.Unhide();
+            //player.FindReviveLocation();
+            
             possessable = null;
         }
     }

@@ -56,7 +56,7 @@ public class PlayerSelectSystem : MonoBehaviour {
     }
 
     private void Start() {
-        multiplayerManager = FindObjectOfType<MultiplayerManager>();
+        multiplayerManager = MultiplayerManager.instance;
 
         // Set the options currently selected to whatever is in the multiplayer manager!
         for (int i = 0; i < 4; i++) {

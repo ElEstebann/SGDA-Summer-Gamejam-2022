@@ -15,7 +15,7 @@ public class OptionsMenuSettingsChanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameSettings = FindObjectOfType<GameSettings>();
+        gameSettings = GameSettings.instance;
 
         Debug.Log(gameSettings.masterVolume + "");
         Debug.Log(gameSettings.musicVolume + "");

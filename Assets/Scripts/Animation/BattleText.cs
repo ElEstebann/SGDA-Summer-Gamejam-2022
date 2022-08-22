@@ -24,6 +24,7 @@ public class BattleText : MonoBehaviour
     void OnDestroy()
     {
         GameManager.OnGameOver -= GameOverScreen;
+        GameManager.OnGameRestart -= Restart;
     }
 
     // Update is called once per frame

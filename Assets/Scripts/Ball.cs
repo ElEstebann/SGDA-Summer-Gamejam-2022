@@ -17,6 +17,7 @@ public class Ball : MonoBehaviour
     private TrailRenderer trail;
     private Vector3 originalPosition;
     private float originalRotation;
+
     
 
     // Start is called before the first frame update
@@ -153,7 +154,8 @@ public class Ball : MonoBehaviour
     void ThrowTo(Vector2 force)
     {
         //Debug.Log("Trown!" + force);
-        transform.SetParent(GameObject.Find("Ball").transform);
+        //transform.SetParent(GameObject.Find("Ball").transform);
+        transform.SetParent(null);
         ReleaseBall();
         if(force != Vector2.zero)
         {

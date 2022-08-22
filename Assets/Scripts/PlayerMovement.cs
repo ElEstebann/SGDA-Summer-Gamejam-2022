@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     public Color hue;
     [SerializeField]
     private bool frozen = true;
+    private int CPUCounter;
+    private Ball ball;
+    private GameManager GM;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
         GameManager.OnUnpause += Unfreeze;
         GameManager.OnGameOver += Freeze;
         GameManager.OnGameRestart += Reset;
+        CPUCounter = player.playerIndex;
+        ball = GameObject.Find("Ball").GetComponent<Ball>();
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     void OnDestroy()
@@ -52,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         shot = true;
                     }  
+                    //CPULogic();
                     break;
 
                 case MultiplayerManager.controlType.Keyboard2:
@@ -117,6 +126,18 @@ public class PlayerMovement : MonoBehaviour
                     {
                         shot = true;
                     }  
+                    break;
+                case MultiplayerManager.controlType.CPU:
+                    if(CPUCounter < 0)
+                    {
+                        CPULogic();
+                        CPUCounter = 5;
+                    }
+                    else
+                    {
+                        CPUCounter--;
+                    }
+                    
                     break;
                 default:
                     break;
@@ -252,6 +273,146 @@ public class PlayerMovement : MonoBehaviour
         player.Reset();
 
 
+    }
+
+    private void CPULogic()
+    {
+        if(!player.alive)
+        {
+            
+            if(isPossessing)
+            {
+                //Path while possessing
+                direction = PathTo(GM.players[GM.killerPlayer-1].transform.position);
+            }
+            else if(canPossess)
+            {
+                shot = true;
+                direction = Vector2.zero;
+            }
+            else
+            {
+                //Path to possessable
+                GameObject[] gos = GameObject.FindGameObjectsWithTag("Possessable");
+                
+                if(gos.Length >0)
+                {
+                    Vector3 shortestDistance =gos[0].transform.position;
+                    for(int i = 1; i < gos.Length; i++)
+                    {
+                        if((gos[i].transform.position - transform.position).magnitude < (shortestDistance - transform.position).magnitude)
+                        {
+                            shortestDistance = gos[i].transform.position;
+                        }
+                        
+                    }
+                    //Debug.DrawRay(transform.position,shortestDistance,hue);
+                    direction = PathTo(shortestDistance);
+                }
+                else
+                {
+                    direction = Vector2.zero;
+                }
+                
+            }
+        }
+        else if (ball.owner != player.playerIndex && ball.owner != 0)
+        {
+            Debug.Log("Run away");
+            direction = PathTo((transform.position-ball.transform.position)*10f + transform.position);
+        }
+        else if(player.hasBall)
+        {
+            //Debug.Log("Aim at player");
+            Vector2 lowestDistance = Vector2.zero;
+            float minDistance = 999f;
+            for(int i = 0; i < 4; i++)
+            {
+                if(i != player.playerIndex - 1 )
+                {
+                    Vector3 target = GM.players[i].transform.position;
+                    RaycastHit2D hit = Physics2D.Raycast(Vector3.Normalize(target - transform.position)*1.5f + transform.position, target - transform.position,Mathf.Infinity,LayerMask.GetMask("Default"));
+                    Debug.DrawRay(Vector3.Normalize(target - transform.position)*1.5f + transform.position,GM.players[i].transform.position - transform.position,hue);
+                    //Debug.Log(hit.collider.tag);
+                    if(hit.collider && hit.collider.tag == "Player" && lowestDistance.Equals(Vector2.zero))
+                    {
+                        
+                        lowestDistance = hit.collider.transform.position;
+                        Debug.Log("SET: " + lowestDistance);
+                    }
+                    else if(hit.collider && hit.collider.tag == "Player" && minDistance < (hit.collider.transform.position - transform.position).magnitude)
+                    {
+                        
+                        lowestDistance = hit.collider.transform.position;
+                        Debug.Log("SET: " + lowestDistance);
+                    }
+                }
+                
+            }
+            //direction.x = lowestDistance.x-transform.position.x;
+            //irection.y = lowestDistance.y - transform.position.y;
+            direction = PathTo(lowestDistance);
+            
+
+            //Debug.DrawRay(transform.position,direction,hue);
+            
+            
+        }
+        else if(ball.owner == player.playerIndex)
+        {
+            direction = PathTo(Vector3.Normalize(transform.position - ball.transform.position)*1.5f + ball.transform.position);
+        }
+        else
+        {
+            Debug.Log("Path to ball");
+            direction = PathTo(ball.transform.position);
+        }
+        
+    }
+
+    public Vector2 PathTo(Vector3 coord)
+    {
+        Vector2 reto = Vector2.zero;
+
+        reto.x = coord.x-transform.position.x;
+        reto.y = coord.y - transform.position.y;
+        
+        Debug.DrawRay(transform.position,reto,hue);
+        return reto;
+    }
+
+    public Vector2 PathToBall(Vector3 target)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Vector3.Normalize(target - transform.position)*1.5f + transform.position, target - transform.position,Mathf.Infinity,LayerMask.GetMask("Default"));
+        if(hit.collider && hit.collider.tag == "Ball")
+        {        
+            return PathTo(target);
+        }
+        else
+        {
+            Vector3 perpendicular = Vector2.Perpendicular(target - transform.position);
+            perpendicular.Normalize();
+            RaycastHit2D hitUp = Physics2D.Raycast(perpendicular*1.5f + transform.position, perpendicular,Mathf.Infinity,LayerMask.GetMask("Default"));
+            RaycastHit2D hitDown = Physics2D.Raycast((-perpendicular)*1.5f + transform.position, -perpendicular,Mathf.Infinity,LayerMask.GetMask("Default"));
+            Vector2 lowestDistance = Vector2.zero;
+            if(hitUp.collider && hitUp.collider.tag != "Possessable")
+            {
+                lowestDistance = hitUp.collider.transform.position;
+            }
+            if(hitDown.collider && hitDown.collider.tag != "Possessable" && (hitDown.collider.transform.position - target).magnitude < (new Vector3(lowestDistance.x,lowestDistance.y,0f)-target).magnitude)
+            {
+                lowestDistance = hitDown.collider.transform.position;
+            }
+            if(lowestDistance == Vector2.zero && hitUp.collider)
+            {
+                lowestDistance = hitUp.collider.transform.position;
+            }
+            else if(lowestDistance == Vector2.zero && hitDown.collider)
+            {
+                lowestDistance = hitDown.collider.transform.position;
+            }
+            return PathTo(lowestDistance);
+        }
     }
 
 }

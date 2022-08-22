@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private GameObject[] players;
+    public GameObject[] players;
 
     public delegate void Game();
     public static event Game OnReviveAll;

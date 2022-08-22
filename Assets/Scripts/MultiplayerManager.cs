@@ -55,7 +55,7 @@ public class MultiplayerManager : MonoBehaviour
         playerControls[0] = controlType.Keyboard1;
         playerControls[1] = controlType.Keyboard2;
         playerControls[2] = controlType.Keyboard3;
-        playerControls[3] = controlType.Gamepad1;
+        playerControls[3] = controlType.Keyboard4;
     }
 
     void Update()

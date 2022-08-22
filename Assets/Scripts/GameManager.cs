@@ -211,6 +211,7 @@ public class GameManager : MonoBehaviour
             OnBallTimeout();
         //ReviveAll();
         Debug.Log("Ball Timed Out");
+        AudioManager.instance.Play("Buzzer");
     }
 
 
